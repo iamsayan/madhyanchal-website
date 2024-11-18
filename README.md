@@ -1,6 +1,6 @@
-# Jagadhatri Online Official Website
+# Madhyanchal Sarbajanin Jagadhatri Puja Samity Official Website
 
-This is the source code of Official Jagadhatri Online Website build using Next.js
+This is the source code of Official Madhyanchal Sarbajanin Jagadhatri Puja Samity Website build using Next.js
 
 Copyright &copy; Sayan Datta. All Rights Reserved.
 

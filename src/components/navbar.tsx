@@ -37,9 +37,16 @@ const Navbar: React.FC = () => {
         { name: 'History', path: '/puja-history' },
         { name: 'Gallery', path: '/gallery' },
         { name: 'Advertise', path: '/advertise' },
-        // { name: 'Jagadhatri Puja', path: '/jagadhatri-puja' },
-        // { name: 'Puja List', path: '/puja-committee-list' },
+        { name: 'Activities', path: '/activities' },
         { name: 'Awards', path: '/awards' },
+        {
+            name: 'Links',
+            path: '#',
+            subMenu: [
+                { name: 'About Us', path: '/about-us' },
+                { name: 'Contact Us', path: '/contact-us' },
+            ],
+        },
     ];
 
     return (
