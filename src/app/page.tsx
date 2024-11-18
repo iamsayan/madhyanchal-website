@@ -51,7 +51,7 @@ export default async function Home() {
     const items: MenuItem[] = [
         {
             title: 'History',
-            description: 'When the entire Bengal, nay India, was under the British rule, inspite of being under the French',
+            description: 'During the period of British colonial rule in India, even though Chandannagar was governed by the French',
             icon: <FaHistory className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: '/puja-history'
         },
