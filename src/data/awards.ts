@@ -1,11 +1,11 @@
-export type Award = {
+export interface Award {
     position: string;
     category: string;
     event: string;
     presentedBy: string;
 }
 
-export type Awards = {
+export interface Awards {
     [key: number]: Award[];
 }
 

@@ -157,7 +157,7 @@ export default async function Home() {
                         </h1>
                         <p className="mb-8">{curYear - 1971 + 1} Years of Tradition, Unity, and Celebration!</p>
                         <Link
-                            href={`/jagadhatri-puja/${year}`}
+                            href="/jagadhatri-puja"
                             className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3.5 px-6 h-auto min-h-full rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500"
                         >
                             Jagadhatri Puja {btnYear}
