@@ -120,8 +120,8 @@ export default async function Home() {
                 "@id": `${process.env.SITE_URL}/#organization`,
                 "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 "sameAs": [
-                    "https://www.facebook.com/JagadhatriOnlineOfficial/",
-                    "https://twitter.com/JagadhatriLive"
+                    "https://www.facebook.com/madhyanchalsarbajanin",
+                    "https://www.instagram.com/madhyanchal_sarbajanin"
                 ]
             },
             {

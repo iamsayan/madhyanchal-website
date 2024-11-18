@@ -20,16 +20,17 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             {
                 "@type": "Organization",
                 "@id": `${process.env.SITE_URL}/#organization`,
-                "name": "Jagadhatri Online",
+                "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 "sameAs": [
                     "https://www.facebook.com/madhyanchalsarbajanin/",
+                    "https://www.instagram.com/madhyanchal_sarbajanin"
                 ]
             },
             {
                 "@type": "WebSite",
                 "@id": `${process.env.SITE_URL}/#website`,
                 "url": `${process.env.SITE_URL}`,
-                "name": "Jagadhatri Online",
+                "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 "publisher": {
                     "@id": `${process.env.SITE_URL}/#organization`
                 },
