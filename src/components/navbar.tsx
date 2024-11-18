@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
                             <Link href="/">
                                 <Image
                                     src={logo}
-                                    alt="Jagadhatri Online Logo"
+                                    alt="Madhyanchal Sarbajanin Logo"
                                     className={isScrolled ? 'h-10 w-auto' : 'h-12 w-auto'}
                                     priority={true}
                                 />
@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
                             <Link href="/">
                                 <Image
                                     src={logo}
-                                    alt="Jagadhatri Online Logo"
+                                    alt="Madhyanchal Sarbajanin Logo"
                                     className={isScrolled ? 'h-10 w-auto' : 'h-12 w-auto'}
                                     priority={true}
                                 />
