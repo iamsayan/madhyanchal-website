@@ -168,7 +168,11 @@ export default async function Home() {
             <Section
                 className="bg-gray-100"
                 title="Welcome to the Official Website of"
-                description={<>Madhya<span className="text-yellow-500">nchal</span></>}
+                description={
+                    <span className="bg-gradient-to-r from-yellow-500 to-amber-500 text-transparent bg-clip-text">
+                        Madhyanchal
+                    </span>
+                }
                 subtitle="Sarbajanin Jagadhatri Puja Samity"
             >
                 <div className="flex flex-col gap-6 text-center">
