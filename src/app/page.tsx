@@ -22,6 +22,9 @@ import slider7 from '@/public/assets/sliders/7.jpg';
 import slider8 from '@/public/assets/sliders/8.jpg';
 import slider9 from '@/public/assets/sliders/9.jpg';
 import slider10 from '@/public/assets/sliders/10.jpg';
+import slider11 from '@/public/assets/sliders/11.jpg';
+import slider12 from '@/public/assets/sliders/12.jpg';
+import slider13 from '@/public/assets/sliders/13.jpg';
 
 interface StatsItem {
     title: string;
@@ -164,12 +167,13 @@ export default async function Home() {
             </HeroSlider>
             <Section
                 className="bg-gray-100"
-                title="Welcome to the Online Puja Portal"
-                description={<>Madhyanchal <span className="text-yellow-500">Sarbajanin</span></>}
+                title="Welcome to the Official Website of"
+                description={<>Madhya<span className="text-yellow-500">nchal</span></>}
+                subtitle="Sarbajanin Jagadhatri Puja Samity"
             >
                 <div className="flex flex-col gap-6 text-center">
                     <p className="md:text-xl text-center m-auto md:leading-relaxed">
-                        Welcome to the official website of Madhyanchal Sarbajanin Jagadhatri Puja Samity! In {curYear}, we proudly celebrate {curYear - 1971 + 1} years of devotion, tradition, and togetherness. As a cornerstone of Chandannagar’s iconic Jagadhatri Puja, our Samity has been a beacon of unity, blending heritage with innovation and fostering love, harmony, and shared prosperity. More than just a festival, our celebration strengthens community bonds while honoring the divine power of Jagadhatri as a symbol of peace and triumph over evil. Join us in marking this milestone and continuing our legacy of cultural and social excellence!
+                        In {curYear}, we proudly celebrate {curYear - 1971 + 1} years of devotion, tradition, and togetherness. As a cornerstone of Chandannagar’s iconic Jagadhatri Puja, our Samity has been a beacon of unity, blending heritage with innovation and fostering love, harmony, and shared prosperity. More than just a festival, our celebration strengthens community bonds while honoring the divine power of Jagadhatri as a symbol of peace and triumph over evil. Join us in marking this milestone and continuing our legacy of cultural and social excellence!
                     </p>
                     <div>
                         <Link
@@ -201,6 +205,9 @@ export default async function Home() {
                             { imageUrl: slider8.src },
                             { imageUrl: slider9.src },
                             { imageUrl: slider10.src },
+                            { imageUrl: slider11.src },
+                            { imageUrl: slider12.src },
+                            { imageUrl: slider13.src },
                         ]}
                         options={{
                             height: 800,

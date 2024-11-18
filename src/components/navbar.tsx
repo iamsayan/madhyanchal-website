@@ -6,6 +6,7 @@ import Image from 'next/image';
 import classNames from 'classnames';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
+import { FaGlobe } from 'react-icons/fa';
 
 interface MenuItem {
     name: string;
@@ -139,8 +140,8 @@ const Navbar: React.FC = () => {
                         </ul>
                     </div>
                     <div className="navbar-end">
-                        <a className="hidden lg:flex btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://www.youtube.com/watch?v=RqcynxeuyZM" target="_blank">
-                            360° Virtual Tour
+                        <a className="btn bg-yellow-500 border-0 uppercase py-2 px-3 md:py-3 md:px-5 h-auto min-h-full rounded-md hover:bg-yellow-400 mr-3 md:mr-0" href="https://www.youtube.com/watch?v=RqcynxeuyZM" target="_blank">
+                            <FaGlobe className="size-4 md:hidden" /> <span className="hidden md:inline">360° Virtual Tour</span>
                         </a>
                     </div>
                 </div>

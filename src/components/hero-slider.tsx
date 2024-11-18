@@ -4,6 +4,7 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import bg1 from '@/public/assets/1.jpg'
 import bg2 from '@/public/assets/2.jpg'
 import bg3 from '@/public/assets/3.jpg'
+import bg4 from '@/public/assets/4.jpg'
 
 // Define the types for the props
 interface ImageSliderProps {
@@ -16,6 +17,7 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
         bg1.src,
         bg2.src,
         bg3.src,
+        bg4.src,
     ];
 
     useEffect(() => {

@@ -92,7 +92,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Advertise with Us" jsonLd={jsonLd}>
-            <Section title="Advertise with" description={<>Madhyanchal <span className="text-yellow-500">Sarbajanin</span></>}>
+            <Section title="Amplify Your" description={<>Brand <span className="text-yellow-500">With Us</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>
                         Since 1971, <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong> has been at the heart of Chandannagar’s cultural heritage, drawing massive crowds during its annual festivities. Partner with us to elevate your brand’s presence among a diverse and engaged audience during this highly anticipated event.

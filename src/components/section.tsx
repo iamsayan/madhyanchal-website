@@ -6,10 +6,11 @@ interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     title?: string;
     description?: ReactNode | string;
+    subtitle?: ReactNode | string;
     className?: string;
 }
 
-export default function Section({ children, title, description, className, ...props }: SectionProps) {
+export default function Section({ children, title, description, subtitle, className, ...props }: SectionProps) {
     const classes = cn('w-full flex justify-center', className || '');
 
     return (
@@ -21,6 +22,7 @@ export default function Section({ children, title, description, className, ...pr
                         <h2 className="title text-3xl md:text-4xl !leading-snug text-center overflow-ellipsis overflow-hidden whitespace-nowrap max-w-[600px]">
                             {description}
                         </h2>
+                        {subtitle && <div className="text-xs md:text-base text-slate-600">{subtitle}</div>}
                         <div className="divider w-10 self-center m-0 divider-warning"></div>
                     </div>
                 )}
