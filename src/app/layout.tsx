@@ -42,7 +42,6 @@ export const metadata: Metadata = {
         google: 'SYZt9rv7_qvB3hl-_KzC5lcd-yrB4C2hr4tb2q6RyBA',
     },
     other: {
-        //'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
         'facebook-domain-verification': '0zt2e0ie65lmgs9vgwe2j434t5cboq',
         'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
         'fb:admins': '100009403062755',
