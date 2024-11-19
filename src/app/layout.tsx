@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import React from "react";
 import Script from "next/script"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import { outfit } from "@/fonts"
 import Loader from "@/components/loader";
 import './globals.sass'
@@ -45,8 +43,8 @@ export const metadata: Metadata = {
     },
     other: {
         //'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
-        //'facebook-domain-verification': 'ym11t0xaxb0v6wd0hctilep9ww4w0o',
-        //'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
+        'facebook-domain-verification': '0zt2e0ie65lmgs9vgwe2j434t5cboq',
+        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
         'fb:admins': '100009403062755',
     },
 }
@@ -58,7 +56,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" data-theme="light">
-            {/* {process.env.NODE_ENV === 'production' &&
+            {process.env.NODE_ENV === 'production' &&
                 <>
                     <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
                     <Script id="google-analytics">
@@ -70,14 +68,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             `}
                     </Script>
                 </>
-            } */}
+            }
             <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
                 {children}
                 <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
-                        <Analytics />
-                        <SpeedInsights />
                         <Script id="statcounter">
                             {`
                                 var sc_project=11173869; 
