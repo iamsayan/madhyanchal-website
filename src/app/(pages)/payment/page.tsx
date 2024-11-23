@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import RazorPayButton from '@/components/razorpay-button';
-import Image from 'next/image';
-import logo from '@/public/new-logo.png';
 
 export const metadata: Metadata = {
     title: 'Payment',
