@@ -19,13 +19,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
     return (
-        <div className="p-6 md:py-10 bg-gray-100 min-h-screen">
-            <div className="max-w-lg mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="p-3 md:p-6 flex items-center flex-col gap-6">
-                    <Image src={logo} alt="logo" className="w-[150px] md:w-[250px]" />
-                    <RazorPayButton buttonId="pl_OTiYvFwYJBvsHN" />
-                </div>
-            </div>
+        <div className="pt-1 flex items-center flex-col">
+            <RazorPayButton buttonId="pl_OTiYvFwYJBvsHN" />
         </div>
     )
 }
