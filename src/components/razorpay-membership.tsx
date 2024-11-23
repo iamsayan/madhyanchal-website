@@ -80,7 +80,7 @@ export default function Page() {
                         whatsapp: formData.phone,
                         paymentId: response.razorpay_payment_id
                     });
-                    window.location.href = `/payment?${params.toString()}`;
+                    window.location.href = `/payment/membership?${params.toString()}`;
                 },
                 modal: {
                     ondismiss: function () {

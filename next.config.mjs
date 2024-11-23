@@ -23,7 +23,7 @@ const nextConfig = {
         return [
             {
                 source: '/payment.php',
-                destination: '/payment',
+                destination: '/payment/membership',
                 permanent: true,
             },
         ]
