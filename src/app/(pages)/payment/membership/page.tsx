@@ -77,7 +77,7 @@ export default function Page({ searchParams }: {
                             <Image
                                 src={logo}
                                 alt="Organization Logo"
-                                className="w-[150px] md:w-[200px]"
+                                className="w-[180px] md:w-[220px]"
                             />
                         </div>
                         <RazorPayMembership />
