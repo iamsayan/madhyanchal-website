@@ -8,7 +8,7 @@ const razorpay = new Razorpay({
 
 export async function POST(request: Request) {
     try {
-        const { amount, formData } = await request.json();
+        const { amount, formData, type } = await request.json();
 
         const order = await razorpay.orders.create({
             amount: amount,
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
                 email: formData.email,
                 name: formData.name,
                 phone: formData.phone,
-                type: 'membership',
+                type,
             },
         });
 

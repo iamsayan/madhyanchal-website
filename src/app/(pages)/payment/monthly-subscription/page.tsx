@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import RazorPayForm from '@/components/razorpay-form';
+import Script from 'next/script'
 import Image from 'next/image';
 import logo from '@/public/new-logo.png';
 
 export const metadata: Metadata = {
-    title: 'Membership',
-    description: 'Membership Payment for Madhyanchal Sarbajanin Jagadhatri Puja Samity',
+    title: 'Monthly Subscription',
+    description: 'Monthly Subscription Payment for Madhyanchal Sarbajanin Jagadhatri Puja Samity',
     alternates: {
-        canonical: '/payment/membership',
+        canonical: '/payment/monthly-subscription',
     },
     openGraph: null,
     twitter: null,
@@ -29,7 +30,7 @@ export default function Page() {
                             className="w-[180px] md:w-[220px]"
                         />
                     </div>
-                    <RazorPayForm type="membership" />
+                    <RazorPayForm type="monthly-subscription" />
                 </div>
             </div>
         </div>

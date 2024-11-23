@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
+import Script from 'next/script'
 
 declare global {
     interface Window {
@@ -16,7 +17,8 @@ interface FormData {
     amount: string;
 }
 
-export default function Page() {
+export default function RazorPayForm({ type }: { type: string }) {
+    const [success, setSuccess] = useState<{ paymentId: string } | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [processing, setProcessing] = useState(false);
     const [formData, setFormData] = useState<FormData>({
@@ -38,7 +40,7 @@ export default function Page() {
         e.preventDefault();
 
         if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
-            alert('Please fill in all fields');
+            setError('Please fill in all fields');
             return;
         }
 
@@ -46,13 +48,14 @@ export default function Page() {
             setProcessing(true);
             const amountInPaise = Math.round(parseFloat(formData.amount) * 100);
 
-            const orderResponse = await fetch('/api/create-order', {
+            const orderResponse = await fetch('/api/razorpay/create-order', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     amount: amountInPaise,
+                    type,
                     formData
                 }),
             });
@@ -63,24 +66,18 @@ export default function Page() {
                 amount: amountInPaise.toString(),
                 currency: "INR",
                 name: "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
-                description: "Membership Payment of ₹" + formData.amount + " for " + formData.name,
+                description: "Payment of ₹" + formData.amount + " for " + formData.name,
                 order_id: orderId,
                 notes: {
                     email: formData.email,
                     name: formData.name,
                     phone: formData.phone,
-                    type: 'membership',
+                    type,
                 },
                 handler: function (response: any) {
                     console.log(response);
-                    const params = new URLSearchParams({
-                        status: 'success',
-                        name: formData.name,
-                        email: formData.email,
-                        whatsapp: formData.phone,
-                        paymentId: response.razorpay_payment_id
-                    });
-                    window.location.href = `/payment/membership?${params.toString()}`;
+                    setSuccess({ paymentId: response.razorpay_payment_id });
+                    setProcessing(false);
                 },
                 modal: {
                     ondismiss: function () {
@@ -118,13 +115,39 @@ export default function Page() {
             razorpay.open();
         } catch (err) {
             setProcessing(false);
-            console.error('Payment failed:', err);
+            console.error('Payment failed!', err);
             setError(`${err}`);
         }
     };
 
     return (
         <>
+            <Script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                strategy="beforeInteractive"
+            />
+            {success && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <div className="text-center">
+                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-green-600 mb-2">Payment Successful!</h3>
+                            <p className="text-gray-600 mb-4">Thank you for your contribution.</p>
+                            <p className="text-sm text-gray-500 mb-4">Payment ID: {success.paymentId}</p>
+                            <button
+                                onClick={() => window.location.reload()}
+                                className="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                            >
+                                Make Another Payment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             {error && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
