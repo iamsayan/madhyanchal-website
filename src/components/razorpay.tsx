@@ -17,6 +17,7 @@ interface FormData {
 }
 
 export default function Page() {
+    const [error, setError] = useState<string | null>(null);
     const [processing, setProcessing] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         name: '',
@@ -24,7 +25,7 @@ export default function Page() {
         phone: '',
         amount: '',
     });
-
+    const closeError = () => setError(null);
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -81,6 +82,11 @@ export default function Page() {
                     });
                     window.location.href = `/payment?${params.toString()}`;
                 },
+                modal: {
+                    ondismiss: function () {
+                        setProcessing(false);
+                    }
+                },
                 prefill: {
                     name: formData.name,
                     email: formData.email,
@@ -94,98 +100,126 @@ export default function Page() {
             };
 
             const razorpay = new window.Razorpay(options);
+            razorpay.on('payment.failed', function (response: any) {
+                const errorMessage = `
+                    Error Code: ${response.error.code}
+                    Reason: ${response.error.reason}
+                    Description: ${response.error.description}
+                    Step: ${response.error.step}
+                    Source: ${response.error.source}
+                    Order ID: ${response.error.metadata.order_id}
+                    Payment ID: ${response.error.metadata.payment_id}
+                `.trim();
+
+                setError(errorMessage);
+                setProcessing(false);
+            });
+
             razorpay.open();
         } catch (err) {
-            console.error('Payment failed:', err);
-            alert('Payment failed. Please try again.');
-        } finally {
             setProcessing(false);
+            console.error('Payment failed:', err);
+            setError(`${err}`);
         }
     };
 
     return (
-        <form onSubmit={handlePayment} className="space-y-4">
-            <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                />
-            </div>
-
-            <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                />
-            </div>
-
-            <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    WhatsApp Number
-                </label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    minLength={10}
-                    maxLength={10}
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                />
-            </div>
-
-            <div>
-                <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
-                    Amount (₹)
-                </label>
-                <input
-                    type="number"
-                    id="amount"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleInputChange}
-                    min="1"
-                    step="1"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                />
-            </div>
-
-            <button
-                type="submit"
-                disabled={processing}
-                className={`w-full py-3 px-4 bg-blue-600 text-white rounded-md font-medium
-                                hover:bg-blue-700 transition-colors
-                                disabled:bg-blue-300 disabled:cursor-not-allowed
-                                flex items-center justify-center gap-2`}
-            >
-                {processing ? (
-                    <>
-                        <BiLoaderAlt className="animate-spin h-5 w-5" />
-                        Processing...
-                    </>
-                ) : (
-                    'Proceed to Pay'
-                )}
-            </button>
-        </form>
+        <>
+            {error && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+                        <h3 className="text-xl font-bold text-red-600 mb-4">Payment Failed</h3>
+                        <pre className="whitespace-pre-wrap text-sm text-gray-700 mb-4">
+                            {error}
+                        </pre>
+                        <button
+                            onClick={closeError}
+                            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+            <form onSubmit={handlePayment} className="space-y-4">
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                        WhatsApp Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        minLength={10}
+                        maxLength={10}
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
+                        Amount (₹) <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleInputChange}
+                        min="1"
+                        step="1"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <button
+                    type="submit"
+                    disabled={processing}
+                    className={`w-full py-3 px-4 bg-blue-600 text-white rounded-md font-medium
+                                    hover:bg-blue-700 transition-colors
+                                    disabled:bg-blue-300 disabled:cursor-not-allowed
+                                    flex items-center justify-center gap-2`}
+                >
+                    {processing ? (
+                        <>
+                            <BiLoaderAlt className="animate-spin h-5 w-5" />
+                            Processing...
+                        </>
+                    ) : (
+                        'Proceed to Pay'
+                    )}
+                </button>
+            </form>
+        </>
     );
 }
