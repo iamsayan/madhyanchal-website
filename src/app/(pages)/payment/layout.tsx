@@ -11,11 +11,11 @@ export default function Layout({ children }: LayoutProps) {
             <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100">
                 <div className="h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
                 <div className="p-6 md:p-8">
-                    <div className="flex justify-center mb-6 hover:rotate-2 transition-transform duration-300">
+                    <div className="flex justify-center mb-6">
                         <Image
                             src={logo}
                             alt="Organization Logo"
-                            className="w-[180px] md:w-[220px] drop-shadow-sm"
+                            className="w-[180px] md:w-[220px]"
                         />
                     </div>
                     {children}
