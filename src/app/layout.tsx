@@ -8,7 +8,7 @@ import './globals.sass'
 const curYear = new Date().getFullYear();
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || ''),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
     alternates: {
         canonical: '/',
     },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     },
     other: {
         'facebook-domain-verification': '0zt2e0ie65lmgs9vgwe2j434t5cboq',
-        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
+        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID!,
         'fb:admins': '100009403062755',
     },
 }
@@ -64,7 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"${process.env.NEXT_PUBLIC_SITE_URL}","cookie_flags":"samesite=none;secure","allow_google_signals":true});
-                            `}
+                        `}
                     </Script>
                 </>
             }

@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const sitemaps: MetadataRoute.Sitemap = [
         {
-            url: process.env.NEXT_PUBLIC_SITE_URL || '',
+            url: process.env.NEXT_PUBLIC_SITE_URL!,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 1,

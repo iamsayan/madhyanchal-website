@@ -49,7 +49,7 @@ export default function Page() {
                             <p className="text-gray-400 text-sm mb-4">Find us at our location in Chandannagar</p>
                             <div className="overflow-hidden rounded-xl shadow-xl">
                                 <GoogleMapsEmbed
-                                    apiKey={process.env.GOOGLE_MAP_API_KEY || ''}
+                                    apiKey={process.env.GOOGLE_MAP_API_KEY!}
                                     height={300}
                                     width="100%"
                                     mode="place"
