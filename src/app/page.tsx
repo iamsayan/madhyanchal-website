@@ -117,7 +117,7 @@ export default async function Home() {
         "@graph": [
             {
                 "@type": "Organization",
-                "@id": `${process.env.SITE_URL}/#organization`,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`,
                 "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 "sameAs": [
                     "https://www.facebook.com/madhyanchalsarbajanin",
@@ -126,21 +126,21 @@ export default async function Home() {
             },
             {
                 "@type": "WebSite",
-                "@id": `${process.env.SITE_URL}/#website`,
-                "url": process.env.SITE_URL,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`,
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 "publisher": {
-                    "@id": `${process.env.SITE_URL}/#organization`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
                 },
                 "inLanguage": "en-US"
             },
             {
                 "@type": "WebPage",
-                "@id": `${process.env.SITE_URL}#webpage`,
-                "url": process.env.SITE_URL,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#webpage`,
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": `Madhyanchal Sarbajanin | ${curYear - 1971 + 1} Years of Tradition, Unity, and Celebration since 1971!`,
                 "isPartOf": {
-                    "@id": `${process.env.SITE_URL}/#website`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`
                 },
                 "inLanguage": "en-US"
             }
