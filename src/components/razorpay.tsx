@@ -72,7 +72,14 @@ export default function Page() {
                 },
                 handler: function (response: any) {
                     console.log(response);
-                    window.location.href = `/payment?status=success`;
+                    const params = new URLSearchParams({
+                        status: 'success',
+                        name: formData.name,
+                        email: formData.email,
+                        whatsapp: formData.phone,
+                        paymentId: response.razorpay_payment_id
+                    });
+                    window.location.href = `/payment?${params.toString()}`;
                 },
                 prefill: {
                     name: formData.name,
@@ -83,6 +90,7 @@ export default function Page() {
                     email: true,
                     contact: true
                 },
+                send_sms_hash: true,
             };
 
             const razorpay = new window.Razorpay(options);
