@@ -143,6 +143,8 @@ export default function Page() {
                     type="tel"
                     id="phone"
                     name="phone"
+                    minLength={10}
+                    maxLength={10}
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
