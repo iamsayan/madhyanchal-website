@@ -14,10 +14,10 @@ export const metadata: Metadata = {
     },
     title: {
         template: `%s - Madhyanchal Sarbajanin | ${curYear - 1971 + 1} Years of Tradition, Unity, and Celebration since 1971!`,
-        default: `Madhyanchal Sarbajanin Jagadhatri Puja Samity | ${curYear - 1971 + 1} Years of Tradition, Unity, and Celebration since 1971!`,
+        default: `Madhyanchal Sarbajanin | ${curYear - 1971 + 1} Years of Tradition, Unity, and Celebration since 1971!`,
     },
     description: `Welcome to the official website of Madhyanchal Sarbajanin Jagadhatri Puja Samity! In ${curYear}, we proudly celebrate ${curYear - 1971 + 1} years of devotion, tradition, and togetherness.`,
-    keywords: ['jagadhatri puja', 'jagadhatri', 'chandannagar'],
+    keywords: ['jagadhatri puja', 'jagadhatri', 'chandannagar', 'madhyanchal'],
     authors: [{ name: 'Sayan Datta', url: 'https://sayandatta.co.in' }],
     creator: 'Sayan Datta',
     publisher: 'Madhyanchal Sarbajanin Jagadhatri Puja Samity',

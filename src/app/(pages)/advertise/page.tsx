@@ -231,53 +231,53 @@ export default function Page() {
                         </Gallery>
                     </div>
                     <div className="flex flex-col gap-6 mt-6">
-                        <div className="bg-gradient-to-br from-yellow-50 to-neutral-50 border border-yellow-100 rounded-2xl p-8 shadow-lg">
-                            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-neutral-800">
+                        <div className="bg-gradient-to-br from-yellow-50 to-neutral-50 border border-yellow-100 rounded-2xl p-4 md:p-8 shadow-lg">
+                            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-6 md:mb-8 text-neutral-800">
                                 Let's Create Something <span className="text-yellow-600">Extraordinary</span> Together
                             </h2>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                                 {/* Contact Information */}
-                                <div className="space-y-6">
-                                    <div className="flex items-start gap-4 group">
-                                        <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
-                                            <FaLocationDot className="w-6 h-6 text-yellow-700" />
+                                <div className="space-y-4 md:space-y-6">
+                                    <div className="flex items-start gap-3 md:gap-4 group">
+                                        <div className="p-2.5 md:p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
+                                            <FaLocationDot className="w-5 h-5 md:w-6 md:h-6 text-yellow-700" />
                                         </div>
                                         <div>
-                                            <h3 className="font-semibold text-lg mb-1">Address</h3>
-                                            <p className="text-neutral-600">Station Road, Chandannagar, Hooghly – 712136</p>
+                                            <h3 className="font-semibold text-base md:text-lg mb-0.5 md:mb-1">Address</h3>
+                                            <p className="text-sm md:text-base text-neutral-600">Station Road, Chandannagar, Hooghly – 712136</p>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-start gap-4 group">
-                                        <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
-                                            <FaEnvelope className="w-6 h-6 text-yellow-700" />
+                                    <div className="flex items-start gap-3 md:gap-4 group">
+                                        <div className="p-2.5 md:p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
+                                            <FaEnvelope className="w-5 h-5 md:w-6 md:h-6 text-yellow-700" />
                                         </div>
                                         <div>
-                                            <h3 className="font-semibold text-lg mb-1">Email</h3>
+                                            <h3 className="font-semibold text-base md:text-lg mb-0.5 md:mb-1">Email</h3>
                                             <a href="mailto:jagatdhatri.madhyanchal@gmail.com"
-                                                className="text-yellow-600 hover:text-yellow-700 transition-colors">
+                                                className="text-sm md:text-base text-yellow-600 hover:text-yellow-700 transition-colors break-all">
                                                 jagatdhatri.madhyanchal@gmail.com
                                             </a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-start gap-4 group">
-                                        <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
-                                            <FaPhone className="w-6 h-6 text-yellow-700" />
+                                    <div className="flex items-start gap-3 md:gap-4 group">
+                                        <div className="p-2.5 md:p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
+                                            <FaPhone className="w-5 h-5 md:w-6 md:h-6 text-yellow-700" />
                                         </div>
                                         <div>
-                                            <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                                            <p className="text-neutral-600">Raja Dutta: <a href="tel:+919051300020" className="text-yellow-600 hover:text-yellow-700">+91-9051300020</a></p>
-                                            <p className="text-neutral-600">Avik Sarkar: <a href="tel:+918599918394" className="text-yellow-600 hover:text-yellow-700">+91-8599918394</a></p>
+                                            <h3 className="font-semibold text-base md:text-lg mb-0.5 md:mb-1">Phone</h3>
+                                            <p className="text-sm md:text-base text-neutral-600">Raja Dutta: <a href="tel:+919051300020" className="text-yellow-600 hover:text-yellow-700">+91-9051300020</a></p>
+                                            <p className="text-sm md:text-base text-neutral-600">Avik Sarkar: <a href="tel:+918599918394" className="text-yellow-600 hover:text-yellow-700">+91-8599918394</a></p>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Brochure Request */}
-                                <div className="bg-white rounded-xl p-6 shadow-sm border border-neutral-100">
-                                    <h3 className="text-xl font-bold mb-4">Request a Brochure</h3>
-                                    <p className="text-neutral-600 mb-6">
+                                <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-neutral-100">
+                                    <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Request a Brochure</h3>
+                                    <p className="text-sm md:text-base text-neutral-600 mb-4 md:mb-6">
                                         Download our comprehensive sponsorship brochure to explore various packages and opportunities available for {new Date().getFullYear()}.
                                     </p>
                                     <div className="flex gap-3">
@@ -285,11 +285,11 @@ export default function Page() {
                                             href="https://madhyanchalsarbajanin.co.in/contact-us/"
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex-1 group inline-flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white px-6 py-3.5 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-yellow-200"
+                                            className="flex-1 group inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white px-4 md:px-6 py-3 md:py-3.5 rounded-lg text-sm md:text-base font-medium transition-all duration-300 hover:shadow-lg hover:shadow-yellow-200"
                                         >
-                                            <FaFileDownload className="size-5 group-hover:-translate-y-1 transition-transform" />
+                                            <FaFileDownload className="size-4 md:size-5 group-hover:-translate-y-1 transition-transform" />
                                             Download Brochure
-                                            <FaArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
+                                            <FaArrowRight className="size-3 md:size-4 group-hover:translate-x-1 transition-transform" />
                                         </a>
                                     </div>
                                 </div>
