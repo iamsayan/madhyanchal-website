@@ -13,17 +13,17 @@ declare global {
 const T_SHIRT_DATA = {
     kid: {
         name: 'Kid',
-        price: 250,
+        price: 1,
         description: 'Round Neck Pure Cotton (7-9 years)',
     },
     small: {
         name: 'Small',
-        price: 360,
+        price: 1,
         description: 'Size 36',
     },
     medium: {
         name: 'Medium',
-        price: 420,
+        price: 1,
         description: 'Size 42',
     },
     large: {
@@ -60,9 +60,9 @@ export default function RazorPayTShirt() {
     const [error, setError] = useState<string | null>(null);
     const [processing, setProcessing] = useState(false);
     const [formData, setFormData] = useState<FormData>({
-        name: 'Sayan Datta',
-        email: 'sdfgdfsg@gmail.com',
-        phone: '9831617009',
+        name: '',
+        email: '',
+        phone: '',
         kid: 0,
         small: 0,
         medium: 0,
