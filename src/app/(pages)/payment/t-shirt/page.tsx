@@ -46,6 +46,11 @@ export default function Page() {
                     ]}
                     options={{
                         height: 500,
+                        breakpoints: {
+                            640: {
+                                height: 300,
+                            },
+                        },
                     }}
                 />
             </div>

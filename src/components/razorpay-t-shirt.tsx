@@ -157,7 +157,6 @@ export default function RazorPayTShirt() {
                 },
                 send_sms_hash: true,
             };
-            console.log(options);
 
             const razorpay = new window.Razorpay(options);
             razorpay.on('payment.failed', function (response: any) {
@@ -280,12 +279,12 @@ export default function RazorPayTShirt() {
                         {Object.entries(T_SHIRT_DATA).map(([size, data]) => (
                             <div key={size} className="flex items-center justify-between p-3 border rounded-md">
                                 <div>
-                                    <p className="font-medium">{data.name} (₹{data.price.toFixed(2)})</p>
-                                    <p className="text-sm text-gray-500">{data.description}</p>
+                                    <p className="font-medium">{data.name} - ₹{data.price.toFixed(2)}</p>
+                                    <p className="text-xs text-gray-500">{data.description}</p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <button type="button" onClick={() => adjustQuantity(size as keyof FormData, -1)} className="px-2 py-1 border rounded">-</button>
-                                    <span className="w-8 text-center">{formData[size as keyof FormData]}</span>
+                                    <span className="w-6 text-center">{formData[size as keyof FormData]}</span>
                                     <button type="button" onClick={() => adjustQuantity(size as keyof FormData, 1)} className="px-2 py-1 border rounded">+</button>
                                 </div>
                             </div>
@@ -293,11 +292,9 @@ export default function RazorPayTShirt() {
                     </div>
                 </div>
 
-                <div className="border-t pt-4">
-                    <div className="flex justify-between items-center">
-                        <span className="text-lg font-medium">Total Amount:</span>
-                        <span className="text-lg font-bold">₹{calculateTotalAmount().toFixed(2)}</span>
-                    </div>
+                <div className="flex justify-between items-center">
+                    <span className="text-lg font-medium">Total Amount:</span>
+                    <span className="text-lg font-bold">₹{calculateTotalAmount().toFixed(2)}</span>
                 </div>
 
                 <button
