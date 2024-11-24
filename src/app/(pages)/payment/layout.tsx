@@ -16,6 +16,7 @@ export default function Layout({ children }: LayoutProps) {
                             src={logo}
                             alt="Organization Logo"
                             className="w-[180px] md:w-[220px]"
+                            priority={true}
                         />
                     </div>
                     {children}
