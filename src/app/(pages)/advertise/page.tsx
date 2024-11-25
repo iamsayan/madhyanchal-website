@@ -278,11 +278,11 @@ export default function Page() {
                                 <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-neutral-100">
                                     <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4">Request a Brochure</h3>
                                     <p className="text-sm md:text-base text-neutral-600 mb-4 md:mb-6">
-                                        Download our comprehensive sponsorship brochure to explore various packages and opportunities available for {new Date().getFullYear()}.
+                                        Download our comprehensive sponsorship brochure to explore various packages and opportunities available for this year.
                                     </p>
                                     <div className="flex gap-3">
                                         <a
-                                            href="https://madhyanchalsarbajanin.co.in/contact-us/"
+                                            href="https://storage.madhyanchalsarbajanin.co.in/brochure.pdf"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex-1 group inline-flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white px-4 md:px-6 py-3 md:py-3.5 rounded-lg text-sm md:text-base font-medium transition-all duration-300 hover:shadow-lg hover:shadow-yellow-200"
