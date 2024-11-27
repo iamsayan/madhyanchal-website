@@ -112,13 +112,8 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             "startDate": start,
             "endDate": end,
+            "image": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
             "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
-            "isPartOf": {
-                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`
-            },
-            "publisher": {
-                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
-            },
             "inLanguage": "en-US",
             "mainEntityOfPage": {
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`
