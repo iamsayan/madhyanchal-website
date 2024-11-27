@@ -61,6 +61,10 @@ const nextConfig = {
                         ].join(', ')
                     },
                     {
+                        key: 'Content-Security-Policy',
+                        value: "frame-ancestors 'self';"
+                    },
+                    {
                         key: 'Access-Control-Allow-Origin',
                         value: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
                     },
