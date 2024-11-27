@@ -118,9 +118,9 @@ export default function RazorPayTShirt() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    ...formData,
                     amount: amountInPaise,
                     type: 't-shirt',
-                    formData
                 }),
             });
             const { orderId } = await orderResponse.json();

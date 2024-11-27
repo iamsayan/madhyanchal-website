@@ -8,16 +8,23 @@ const razorpay = new Razorpay({
 
 export async function POST(request: Request) {
     try {
-        const { amount, formData, type } = await request.json();
+        const { amount, email, name, phone, type } = await request.json();
+
+        if (!amount || !email || !name || !phone || !type) {
+            return NextResponse.json(
+                { error: 'Missing required fields' },
+                { status: 400 }
+            );
+        }
 
         const order = await razorpay.orders.create({
             amount: amount,
             currency: 'INR',
             receipt: `receipt_${Date.now()}`,
             notes: {
-                email: formData.email,
-                name: formData.name,
-                phone: formData.phone,
+                email,
+                name,
+                phone,
                 type,
             },
         });

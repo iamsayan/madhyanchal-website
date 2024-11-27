@@ -54,9 +54,9 @@ export default function RazorPayForm({ type }: { type: string }) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    ...formData,
                     amount: amountInPaise,
                     type,
-                    formData
                 }),
             });
             const { orderId } = await orderResponse.json();
