@@ -21,6 +21,8 @@ export const awards: Awards = {
         { position: 'Sera', category: 'Road Lighting', event: 'Jagadhatri Somman 2024', presentedBy: 'Rupong Dehi' },
         { position: 'Sera', category: 'Road Lighting', event: 'Hoimontika Somman 2024', presentedBy: 'Young Boys' },
         { position: 'Sera', category: 'Puja Perfect', event: 'Jagadhatri Somman 2024', presentedBy: 'Bangalar Utsav' },
+        { position: 'Special', category: 'Puja Perfect', event: 'Jagadhatri Somman 2024', presentedBy: 'All India Rajiv Gandhi Educational & Social Justice Forum' },
+        { position: 'Special', category: 'Puja Perfect', event: 'Jagadhatri Somman 2024', presentedBy: 'Human Rights & Anti Crime Bureau' },
     ],
     2023: [
         { position: 'Joint 3rd', category: 'Road Lighting', event: 'Jagadhatri Puja Somman 2023', presentedBy: 'Chandannagar Central Jagadhatri Puja Committee' },
@@ -36,7 +38,7 @@ export const awards: Awards = {
         { position: 'Sera', category: 'Idol', event: 'Sera Somman 2023', presentedBy: 'Raatdin Bharat' },
         { position: 'Onnotomo Oitijjhobahi Pujo', category: 'Puja Perfect', event: 'Jagadhatri Somman 2023', presentedBy: 'My Nature Coach' },
         { position: 'Sera', category: 'Puja Perfect', event: 'Jagadhatri Somman 2023', presentedBy: 'Raatdin Bangla' },
-        { position: 'Sera', category: 'Puja Perfect', event: 'Jagadhatri Somman 2023', presentedBy: 'All India Rajiv Gandhi Educational & Social Justice Forum' },
+        { position: 'Special', category: 'Puja Perfect', event: 'Jagadhatri Somman 2023', presentedBy: 'All India Rajiv Gandhi Educational & Social Justice Forum' },
     ],
     2022: [
         { position: 'Sera', category: 'Puja Perfect', event: 'Alok Anondo Somman 2022', presentedBy: 'ABP Ananda' },

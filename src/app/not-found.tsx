@@ -10,14 +10,35 @@ export const metadata: Metadata = {
 
 const NotFound: React.FC = () => {
     return (
-        <div className="bg-gray-200 w-full px-16 md:px-0 h-screen flex items-center justify-center">
-            <div className="bg-white border border-gray-200 flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg shadow-2xl">
-                <p className="text-6xl md:text-7xl lg:text-9xl font-bold tracking-wider text-gray-300">404</p>
-                <p className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-wider text-gray-500 mt-4">Page Not Found</p>
-                <p className="text-gray-500 mt-4 pb-4 border-b-2 text-center">Sorry, the page you are looking for could not be found.</p>
-                <Link href="/" className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 mt-6 rounded transition duration-150" title="Return Home">
-                    <FaArrowLeftLong /><span>Return Home</span>
-                </Link>
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200 flex items-center justify-center p-4">
+            <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div className="p-8 md:p-12 relative">
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-600" />
+                    <div className="absolute -left-16 -top-16 w-48 h-48 rounded-full bg-blue-100/50" />
+                    <div className="absolute -right-16 -bottom-16 w-48 h-48 rounded-full bg-purple-100/50" />
+                    
+                    {/* Content */}
+                    <div className="relative space-y-6 text-center">
+                        <h1 className="text-8xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
+                            404
+                        </h1>
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+                            Oops! Page Not Found
+                        </h2>
+                        <p className="text-gray-600 max-w-md mx-auto">
+                            The page you're looking for seems to have wandered off into the digital wilderness.
+                        </p>
+                        
+                        <Link 
+                            href="/" 
+                            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full font-medium transition-transform hover:scale-105 hover:shadow-lg"
+                        >
+                            <FaArrowLeftLong />
+                            <span>Return Home</span>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -97,21 +97,6 @@ export default function RazorPayForm({ type }: { type: string }) {
             };
 
             const razorpay = new window.Razorpay(options);
-            razorpay.on('payment.failed', function (response: any) {
-                const errorMessage = `
-                    Error Code: ${response.error.code}
-                    Reason: ${response.error.reason}
-                    Description: ${response.error.description}
-                    Step: ${response.error.step}
-                    Source: ${response.error.source}
-                    Order ID: ${response.error.metadata.order_id}
-                    Payment ID: ${response.error.metadata.payment_id}
-                `.trim();
-
-                setError(errorMessage);
-                setProcessing(false);
-            });
-
             razorpay.open();
         } catch (err) {
             setProcessing(false);
