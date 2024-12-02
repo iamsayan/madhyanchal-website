@@ -85,14 +85,14 @@ export default async function Home() {
         },
         {
             title: 'Prestigious Awards',
-            stat: '45',
+            stat: '50',
             icon: <FaAward className="inline-block size-8 stroke-current" />,
-            description: 'Won 10+ awards in just 2024',
+            description: 'Won 12 awards in just 2024',
             class: 'text-green-600'
         },
         {
             title: 'Followers',
-            stat: '7.8K',
+            stat: '8.1K',
             icon: <FaFacebook className="inline-block size-8 stroke-current" />,
             description: '100+ new followers in last 30 days'
         },
@@ -105,7 +105,7 @@ export default async function Home() {
         },
         {
             title: 'Post Engagement',
-            stat: '206K',
+            stat: '250K',
             icon: <FaVideo className="inline-block size-8 stroke-current" />,
             description: '38% more than last month',
             class: 'text-blue-500'
