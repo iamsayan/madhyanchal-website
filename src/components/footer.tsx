@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaYoutube, FaFacebookF, FaInstagram, FaXTwitter, FaPinterestP, FaGithub } from "react-icons/fa6";
+import { FaYoutube, FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import ScrollTop from "@/components/scroll-top";
 
 interface NavItem {
@@ -50,6 +50,9 @@ export default function Footer() {
                         </a>
                         <a href="https://www.instagram.com/madhyanchal_sarbajanin" target="_blank" rel="noopener">
                             <FaInstagram className="size-4 sm:size-5 md:size-6" />
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029Va9oDu0C6ZvcosFumh0Y" target="_blank" rel="noopener">
+                            <FaWhatsapp className="size-4 sm:size-5 md:size-6" />
                         </a>
                     </div>
                 </nav>

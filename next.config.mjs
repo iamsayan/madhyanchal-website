@@ -15,7 +15,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: '**.madhyanchalsarbajanin.co.in',
+                hostname: 'madhyanchalsarbajanin.co.in',
             },
         ],
     },
