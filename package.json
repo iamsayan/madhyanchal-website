@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "obfuscate-build": "next-css-obfuscator"
   },
   "dependencies": {
     "@next/third-parties": "^14.0.4",
@@ -32,6 +33,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "next-css-obfuscator": "^2.2.18",
     "postcss": "^8",
     "sass": "^1.69.5",
     "sharp": "^0.32.6",
