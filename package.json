@@ -15,7 +15,7 @@
     "classnames": "^2.3.2",
     "daisyui": "^4.4.6",
     "lightgallery": "^2.7.2",
-    "next": "^14.0.3",
+    "next": "^14.2.22",
     "next-nprogress-bar": "^2.3.12",
     "razorpay": "^2.9.5",
     "react": "^18",
