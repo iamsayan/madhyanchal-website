@@ -5,6 +5,8 @@ import { outfit } from "@/fonts"
 import Loader from "@/components/loader";
 import './globals.sass'
 
+export const revalidate = 604800 // 1 week
+
 const curYear = new Date().getFullYear();
 
 export const metadata: Metadata = {
