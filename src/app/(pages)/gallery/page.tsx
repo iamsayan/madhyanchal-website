@@ -27,7 +27,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
-            <Section title="Explore Our" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
+            <Section title="Explore Our" description="Photo Gallery">
                 <GalleryFilter images={images} />
             </Section>
         </MainLayout>

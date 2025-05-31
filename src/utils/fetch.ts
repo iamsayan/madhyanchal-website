@@ -37,7 +37,7 @@ export async function getSingletonData(slug: string): Promise<ApiResponse> {
 }
 
 export async function getImagesData(): Promise<ApiResponse> {
-    const response = await fetch(`https://assets.madhyanchalsarbajanin.co.in/images-api.php`, {
+    const response = await fetch(`https://assets.madhyanchalsarbajanin.co.in/images/api.php`, {
         method: "GET",
         next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
     });

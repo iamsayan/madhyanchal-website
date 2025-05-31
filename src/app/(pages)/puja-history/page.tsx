@@ -22,7 +22,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Puja History" jsonLd={jsonLd}>
-            <Section title="Know More About" description={<>Jagadhatri <span className="text-yellow-500">Puja</span></>}>
+            <Section title="Know More About" description="Jagadhatri Puja">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>During the period of British colonial rule in India, even though Chandannagar was governed by the French, it developed its own unique traditions. One of the most significant cultural celebrations in this region is the Jagadhatri Puja, a prominent socio-cultural festival.</p>
 

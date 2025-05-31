@@ -22,7 +22,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Privacy Policy" jsonLd={jsonLd}>
-            <Section title="Read Our" description={<>Privacy <span className="text-yellow-500">Policy</span></>}>
+            <Section title="Read Our" description="Privacy Policy">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>At Madhyanchal Sarbajanin Jagadhatri Puja Samity, we are committed to safeguarding the privacy and security of our visitors and users. This policy explains how we collect, use, and protect your personal information when you interact with our website or services.</p>
                     <div>

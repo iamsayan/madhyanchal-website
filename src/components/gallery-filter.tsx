@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { cn } from '@/utils/functions';
-import Image from "next/image";
 import Gallery from "@/components/gallery";
+import TransformedImage from "@/components/transformed-image";
 
 interface GalleryFilterProps {
     className?: string;
@@ -12,25 +11,29 @@ interface GalleryFilterProps {
 }
 
 export default function GalleryFilter({ className, images }: GalleryFilterProps) {
+    const lightGallery = useRef<any>(null);
+
     const classes = cn('gallery-filter mt-4', className);
     const [selectedYear, setSelectedYear] = useState('all');
-
-    const imgStyle: React.CSSProperties = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        pointerEvents: 'none'
-    };
 
     let years = Object.keys(images).filter(year => images[year]?.length > 0).toReversed();
     years = ['all', ...years];
 
-    const getFilteredImages = () => {
-        if (selectedYear === 'all') {
-            return Object.values(images).flat();
+    const getFilteredImages = selectedYear === 'all' ? Object.values(images).flat() : images[selectedYear] || [];
+
+    const onInit = useCallback((detail: any) => {
+        if (detail) {
+            lightGallery.current = detail.instance;
         }
-        return images[selectedYear] || [];
-    };
+    }, []);
+
+    const dynamicEl = getFilteredImages.map((item: any, index: number) => {
+        return {
+            src: `https://assets.madhyanchalsarbajanin.co.in/images/${item}`,
+            thumb: `https://assets.madhyanchalsarbajanin.co.in/images/${item}`,
+            alt: `${index + 1} image`,
+        }
+    });
 
     return (
         <div className={classes}>
@@ -49,19 +52,21 @@ export default function GalleryFilter({ className, images }: GalleryFilterProps)
                 ))}
             </div>
 
-            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
-                {getFilteredImages().toReversed().map((item: any, index: number) => (
-                    <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={item}>
-                        <Image
+            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
+                {getFilteredImages.map((item: any, index: number) => (
+                    <div key={index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
+                        <TransformedImage
                             src={item}
                             width={500}
-                            height={300}
-                            style={imgStyle}
-                            priority={false}
+                            height={800}
+                            className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                             loading="lazy"
-                            alt={index + 1 + ' image'}
+                            priority={false}
+                            alt={`${index + 1} image`}
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                         />
-                    </a>
+                    </div>
                 ))}
             </Gallery>
         </div>

@@ -43,7 +43,7 @@ export default function Page() {
 
     return (
         <MainLayout title="About Us" jsonLd={jsonLd}>
-            <Section title="Know More" description={<>Who We <span className="text-yellow-500">Are</span></>}>
+            <Section title="Know More" description="Who We Are">
                 <div className="flex flex-col gap-6 text-justify">
                     <p><strong>Jagadhatri Puja</strong>, the festival of Chandannagar, is as famous as Kolkata’s Durga Puja. Situated with all its glory and pride amidst West Bengal’s densely populated district of Hooghly and the recognized French Colony of Chandannagar, just one kilometer away from the railway station, is the renowned <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong>. Since its inception in 1971, a remarkable {curYear - 1971 + 1} years ago, the committee’s benevolent presence has been ever-expanding. It has continued to spread its tender wings, strengthening the bond of the present generation and leaving a lasting impact on future generations.</p>
 
@@ -61,7 +61,7 @@ export default function Page() {
 
                 </div>
             </Section>
-            <Section className="bg-gray-100" title="MEET OUR" description={<>Member's <span className="text-yellow-500">Team</span></>}>
+            <Section className="bg-gray-100" title="MEET OUR" description="Member's Team">
                 <div className="flex flex-col gap-6 justify-center items-center">
                     <p className="text-center md:text-[18px] md:w-[1200px] m-auto md:leading-relaxed">
                         Madhyanchal Sarbajanin Jagadhatri Puja Samity celebrates the grandeur of Jagadhatri Puja in Chandannagar. For those unable to experience the festival in person, we've created this website to share our pride and the beauty of the celebration with the world. Our dedicated team works hard to make the event unforgettable, and here you can learn more about the efforts behind this magnificent festival.

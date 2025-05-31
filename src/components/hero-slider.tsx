@@ -1,24 +1,19 @@
 'use client'
 
 import React, { useState, useEffect, ReactNode } from 'react';
-import bg1 from '@/public/assets/1.jpg'
-import bg2 from '@/public/assets/2.jpg'
-import bg3 from '@/public/assets/3.jpg'
-import bg4 from '@/public/assets/4.jpg'
+import TransformedImage from '@/components/transformed-image';
 
-// Define the types for the props
+const images = Array.from({ length: 4 }, (_, i) => ({
+    src: `static/${i+1}.jpg`,
+    alt: `Slider Image ${i + 1}`,
+}));
+
 interface ImageSliderProps {
     children?: ReactNode;
 }
 
 const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-    const images: string[] = [
-        bg1.src,
-        bg2.src,
-        bg3.src,
-        bg4.src,
-    ];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -31,18 +26,24 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
     }, [images.length]);
 
     return (
-        <div className="slider hero min-h-full lg:min-h-screen">
-            <div>
-                {images.map((image, index) => (
+        <div className="hero relative w-full overflow-hidden min-h-full lg:min-h-screen">
+            <div className="slider-container">
+                {images.map((item, index) => (
                     <div
                         key={index}
-                        className={
-                            index === currentImageIndex ? 'slide active' : 'slide inactive'
-                        }
-                        style={{
-                            backgroundImage: `url(${image})`,
-                        }}
-                    />
+                        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out bg-cover bg-center ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+                    >
+                        <TransformedImage
+                            src={item.src}
+                            alt={item.alt}
+                            height={800}
+                            width={1000}
+                            priority={index === 0}
+                            quality={95}
+                            className="object-cover h-full w-full"
+                        />
+                        <div className="absolute inset-0 bg-black/60"></div>
+                    </div>
                 ))}
             </div>
             {children}

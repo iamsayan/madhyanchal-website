@@ -1,30 +1,9 @@
 import type { Metadata } from 'next'
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import Slider from '@/components/slider';
+import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
 import { FaPalette, FaHandsHelping, FaLeaf, FaHeart, FaCertificate, FaStar } from 'react-icons/fa';
-
-import image1 from '@/public/assets/activities/1.jpg';
-import image2 from '@/public/assets/activities/2.jpg';
-import image3 from '@/public/assets/activities/3.jpg';
-import image4 from '@/public/assets/activities/4.jpg';
-import image5 from '@/public/assets/activities/5.jpg';
-import image6 from '@/public/assets/activities/6.jpg';
-import image7 from '@/public/assets/activities/7.jpg';
-import image8 from '@/public/assets/activities/8.jpg';
-import image9 from '@/public/assets/activities/9.jpg';
-import image10 from '@/public/assets/activities/10.jpg';
-import image11 from '@/public/assets/activities/11.jpg';
-import image12 from '@/public/assets/activities/12.jpg';
-import image13 from '@/public/assets/activities/13.jpg';
-import image14 from '@/public/assets/activities/14.jpg';
-import image15 from '@/public/assets/activities/15.jpg';
-import image16 from '@/public/assets/activities/16.jpg';
-import image17 from '@/public/assets/activities/17.jpg';
-import image18 from '@/public/assets/activities/18.jpg';
-import image19 from '@/public/assets/activities/19.jpg';
-import image20 from '@/public/assets/activities/20.jpg';
 
 export const metadata: Metadata = {
     title: 'Social Activities',
@@ -45,7 +24,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Social Activities" jsonLd={jsonLd}>
-            <Section title="Know More About" description={<>Social <span className="text-yellow-500">Activities</span></>}>
+            <Section title="Know More About" description="Social Activities">
                 <div className="flex flex-col gap-12 text-justify">
                     <div className="text-center">
                         <h2 className="text-3xl font-bold text-primary-600 flex items-center justify-center gap-3">
@@ -62,14 +41,14 @@ export default function Page() {
                             </div>
                             <p>Every year, during the auspicious occasion of Kali Puja, we celebrate with the children of the <strong>Prabartak Seba Niketan</strong> orphanage. Our members come together to share the festive joy, offering the children a memorable night full of warmth, love, and fun.</p>
                             <div className="mt-4">
-                                <Slider
-                                    slides={[
-                                        { imageUrl: image1.src },
-                                        { imageUrl: image2.src },
-                                        { imageUrl: image3.src },
-                                        { imageUrl: image4.src },
-                                    ]}
-                                    options={{
+                                <GallerySlider
+                                    slides={Array.from({ length: 7 }, (_, i) => ({
+                                        src: `static/activities/${i+1}.jpg`,
+                                        alt: `Slider Image ${i + 1}`,
+                                    }))}
+                                    sliderOptions={{
+                                        autoScroll: false,
+                                        type: 'slide',
                                         height: 400,
                                         breakpoints: {
                                             640: {
@@ -87,14 +66,14 @@ export default function Page() {
                             </div>
                             <p>We organize regular <strong>health camps</strong> to provide free checkups and distribute medicines to the poor and needy. During the COVID-19 pandemic, we set up a <strong>Covid Vaccination Camp</strong> with <strong>R. N. Tagore Hospital</strong>, helping over 520 individuals.</p>
                             <div className="mt-4">
-                                <Slider
-                                    slides={[
-                                        { imageUrl: image5.src },
-                                        { imageUrl: image6.src },
-                                        { imageUrl: image7.src },
-                                        { imageUrl: image8.src },
-                                    ]}
-                                    options={{
+                                <GallerySlider
+                                    slides={Array.from({ length: 7 }, (_, i) => ({
+                                        src: `static/activities/${i+5}.jpg`,
+                                        alt: `Slider Image ${i + 5}`,
+                                    }))}
+                                    sliderOptions={{
+                                        autoScroll: false,
+                                        type: 'slide',
                                         height: 400,
                                         breakpoints: {
                                             640: {
@@ -112,15 +91,14 @@ export default function Page() {
                             </div>
                             <p>Our commitment to social responsibility shows through our <strong>Blood Donation Camps</strong> and <strong>Eye Donation Camps</strong>. These life-saving initiatives, running since 2016, have made a significant impact thanks to community support.</p>
                             <div className="mt-4">
-                                <Slider
-                                    slides={[
-                                        { imageUrl: image9.src },
-                                        { imageUrl: image10.src },
-                                        { imageUrl: image11.src },
-                                        { imageUrl: image12.src },
-                                        { imageUrl: image13.src },
-                                    ]}
-                                    options={{
+                                <GallerySlider
+                                    slides={Array.from({ length: 7 }, (_, i) => ({
+                                        src: `static/activities/${i+9}.jpg`,
+                                        alt: `Slider Image ${i + 9}`,
+                                    }))}
+                                    sliderOptions={{
+                                        autoScroll: false,
+                                        type: 'slide',
                                         height: 400,
                                         breakpoints: {
                                             640: {
@@ -138,17 +116,14 @@ export default function Page() {
                             </div>
                             <p>We foster creativity through <strong>Drawing Competitions</strong> for children, providing a platform to showcase their artistic talents while building community unity and excitement.</p>
                             <div className="mt-4">
-                                <Slider
-                                    slides={[
-                                        { imageUrl: image14.src },
-                                        { imageUrl: image15.src },
-                                        { imageUrl: image16.src },
-                                        { imageUrl: image17.src },
-                                        { imageUrl: image18.src },
-                                        { imageUrl: image19.src },
-                                        { imageUrl: image20.src },
-                                    ]}
-                                    options={{
+                                <GallerySlider
+                                    slides={Array.from({ length: 7 }, (_, i) => ({
+                                        src: `static/activities/${i+14}.jpg`,
+                                        alt: `Slider Image ${i + 14}`,
+                                    }))}
+                                    sliderOptions={{
+                                        autoScroll: false,
+                                        type: 'slide',
                                         height: 400,
                                         breakpoints: {
                                             640: {

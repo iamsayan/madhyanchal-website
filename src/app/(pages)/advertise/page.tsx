@@ -1,19 +1,10 @@
 import type { Metadata } from 'next'
-import Image from 'next/image';
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import Gallery from '@/components/gallery';
+import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
 import { FaCircleCheck, FaCheck, FaLocationDot, FaEnvelope, FaPhone, FaArrowRight } from "react-icons/fa6";
 import { FaFileDownload } from 'react-icons/fa';
-
-import image1 from '@/public/assets/advertisements/1.jpg';
-import image2 from '@/public/assets/advertisements/2.jpg';
-import image3 from '@/public/assets/advertisements/3.jpg';
-import image4 from '@/public/assets/advertisements/4.jpg';
-import image5 from '@/public/assets/advertisements/5.jpg';
-import image6 from '@/public/assets/advertisements/6.jpg';
-import image7 from '@/public/assets/advertisements/7.jpg';
 
 export const metadata: Metadata = {
     title: 'Advertise with Us',
@@ -36,13 +27,6 @@ export default function Page() {
         slug: 'advertise',
         title: 'Advertise with Us',
     })
-
-    const imgStyle: React.CSSProperties = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        pointerEvents: 'none'
-    };
 
     const features: Feature[] = [
         {
@@ -90,9 +74,14 @@ export default function Page() {
         },
     ];
 
+    const sliderImages = Array.from({ length: 7 }, (_, i) => ({
+        src: `static/advertisements/${i+1}.jpg`,
+        alt: `Slider Image ${i + 1}`,
+    }));
+
     return (
         <MainLayout title="Advertise with Us" jsonLd={jsonLd}>
-            <Section title="Amplify Your" description={<>Brand <span className="text-yellow-500">With Us</span></>}>
+            <Section title="Amplify Your" description="Brand With Us">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>
                         Since 1971, <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong> has been at the heart of Chandannagar’s cultural heritage, drawing massive crowds during its annual festivities. Partner with us to elevate your brand’s presence among a diverse and engaged audience during this highly anticipated event.
@@ -214,21 +203,35 @@ export default function Page() {
                     </div>
                     <div className="flex flex-col gap-2 items-center">
                         <h2 className="text-xl md:text-2xl font-bold text-center">Previous Advertisers</h2>
-                        <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
-                            {[image1.src, image2.src, image3.src, image4.src, image5.src, image6.src, image7.src].map((item: any, index: number) => (
-                                <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={item}>
-                                    <Image
-                                        src={item}
-                                        width={500}
-                                        height={300}
-                                        style={imgStyle}
-                                        priority={false}
-                                        loading="lazy"
-                                        alt={index + 1 + ' image'}
-                                    />
-                                </a>
-                            ))}
-                        </Gallery>
+                        <GallerySlider 
+                            speed={500} 
+                            thumbnail={true} 
+                            slideShowAutoplay={true} 
+                            fullScreen={true} 
+                            slides={sliderImages}
+                            sliderOptions={{
+                                lazyLoad: 'nearby',
+                                perPage: 3,
+                                gap: '0.5rem',
+                                perMove: 1,
+                                drag: 'free',
+                                focus: 'center',
+                                autoScroll: {
+                                    speed: 1,
+                                },
+                                height: 600,
+                                pagination: false,
+                                breakpoints: {
+                                    640: {
+                                        perPage: 1,
+                                    },
+                                    1024: {
+                                        perPage: 2,
+                                        height: 350,
+                                    },
+                                },
+                            }}
+                        />
                     </div>
                     <div className="flex flex-col gap-6 mt-6">
                         <div className="bg-gradient-to-br from-yellow-50 to-neutral-50 border border-yellow-100 rounded-2xl p-4 md:p-8 shadow-lg">

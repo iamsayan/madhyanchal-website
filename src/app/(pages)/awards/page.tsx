@@ -2,18 +2,10 @@ import type { Metadata } from 'next'
 import { Fragment } from 'react';
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import Gallery from '@/components/gallery';
-import Image from 'next/image';
+import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
 import { awards, type Award, type Awards } from '@/data/awards';
 import { FaTrophy, FaPalette, FaLandmark, FaHandsHelping, FaLeaf, FaHeart, FaCertificate, FaStar, FaAward, FaMedal } from 'react-icons/fa';
-
-import image1 from '@/public/assets/awards/1.jpg';
-import image2 from '@/public/assets/awards/2.jpg';
-import image3 from '@/public/assets/awards/3.jpg';
-import image4 from '@/public/assets/awards/4.jpg';
-import image5 from '@/public/assets/awards/5.jpg';
-import image6 from '@/public/assets/awards/6.jpg';
 
 export const metadata: Metadata = {
     title: 'Our Awards',
@@ -41,7 +33,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Our Awards" jsonLd={jsonLd}>
-            <Section title="Know More About" description={<>Our <span className="text-yellow-500">Awards</span></>}>
+            <Section title="Know More About" description="Our Awards">
                 <div className="flex flex-col gap-4 text-justify">
                     <p>
                         Explore the prestigious awards and accolades received by Madhyanchal Sarbajanin Jagadhatri Puja Samity. Recognized for excellence in creativity, cultural heritage, and community impact, our awards highlight milestones from road lighting to idol decoration. Discover how our dedication to tradition and innovation has earned recognition from top organizations across Bengal. Celebrate our journey of artistic and cultural excellence. Since its inception, <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong> has been a beacon of excellence in Chandannagar's cultural and festive landscape. Over the years, our dedication to preserving tradition while embracing innovation has earned us widespread acclaim. We are proud to share that, since 2016, we have received over <strong>45 prestigious awards</strong> across various categories. These accolades recognize our achievements in:
@@ -142,21 +134,38 @@ export default function Page() {
                 </div>
                 <div className="flex flex-col gap-2 items-center my-4">
                     <h2 className="text-xl md:text-2xl font-bold text-center">Previous Year's Awards</h2>
-                    <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
-                        {[image1.src, image2.src, image3.src, image4.src, image5.src, image6.src].map((item: any, index: number) => (
-                            <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={item}>
-                                <Image
-                                    src={item}
-                                    width={500}
-                                    height={300}
-                                    style={imgStyle}
-                                    priority={false}
-                                    loading="lazy"
-                                    alt={index + 1 + ' image'}
-                                />
-                            </a>
-                        ))}
-                    </Gallery>
+                    <GallerySlider
+                        speed={500} 
+                        thumbnail={true} 
+                        slideShowAutoplay={true} 
+                        fullScreen={true} 
+                        slides={Array.from({ length: 6 }, (_, i) => ({
+                            src: `static/awards/${i+1}.jpg`,
+                            alt: `Slider Image ${i + 1}`,
+                        }))}
+                        sliderOptions={{
+                            lazyLoad: 'nearby',
+                            perPage: 4,
+                            gap: '0.5rem',
+                            perMove: 1,
+                            drag: 'free',
+                            focus: 'center',
+                            autoScroll: {
+                                speed: 1,
+                            },
+                            height: 400,
+                            pagination: false,
+                            breakpoints: {
+                                640: {
+                                    perPage: 1,
+                                },
+                                1024: {
+                                    perPage: 2,
+                                    height: 300,
+                                },
+                            },
+                        }}
+                    />
                 </div>
                 <div className="flex flex-col gap-4 text-justify">
                     <div className="flex items-center gap-4 p-4 bg-teal-50 rounded-lg border border-teal-200">

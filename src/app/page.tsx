@@ -3,28 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Main from '@/components/main';
 import Section from "@/components/section";
-import Slider from "@/components/slider";
 import CountdownTimer from "@/components/countdown-timer";
-import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaAward, FaGlobe, FaVideo, FaFacebook, FaMapMarkerAlt, FaPhotoVideo } from "react-icons/fa";
+import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaAward, FaGlobe, FaVideo, FaFacebook, FaMapMarkerAlt, FaPhotoVideo, FaCalendarDay } from "react-icons/fa";
 import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getSingletonData } from "@/utils/fetch";
 import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
-
-import slider1 from '@/public/assets/sliders/1.jpg';
-import slider2 from '@/public/assets/sliders/2.jpg';
-import slider3 from '@/public/assets/sliders/3.jpg';
-import slider4 from '@/public/assets/sliders/4.jpg';
-import slider5 from '@/public/assets/sliders/5.jpg';
-import slider6 from '@/public/assets/sliders/6.jpg';
-import slider7 from '@/public/assets/sliders/7.jpg';
-import slider8 from '@/public/assets/sliders/8.jpg';
-import slider9 from '@/public/assets/sliders/9.jpg';
-import slider10 from '@/public/assets/sliders/10.jpg';
-import slider11 from '@/public/assets/sliders/11.jpg';
-import slider12 from '@/public/assets/sliders/12.jpg';
-import slider13 from '@/public/assets/sliders/13.jpg';
+import GallerySlider from "@/components/gallery-slider";
 
 interface StatsItem {
     title: string;
@@ -47,6 +33,11 @@ export default async function Home() {
     const year = getDateByIndex(data, 0).getFullYear();
     const curYear = new Date().getFullYear();
     const btnYear = curYear > year ? curYear : year;
+
+    const sliderImages = Array.from({ length: 13 }, (_, i) => ({
+        src: `static/sliders/${i+1}.jpg`,
+        alt: `Slider Image ${i + 1}`,
+    }));
 
     const items: MenuItem[] = [
         {
@@ -168,11 +159,7 @@ export default async function Home() {
             <Section
                 className="bg-gray-100"
                 title="Welcome to the Official Website of"
-                description={
-                    <span className="bg-gradient-to-r from-yellow-500 to-amber-500 text-transparent bg-clip-text">
-                        Madhyanchal
-                    </span>
-                }
+                description="Madhyanchal"
                 subtitle="Sarbajanin Jagadhatri Puja Samity"
             >
                 <div className="flex flex-col gap-6 text-center">
@@ -197,27 +184,32 @@ export default async function Home() {
                             </div>
                         ))}
                     </div>
-                    <Slider
-                        slides={[
-                            { imageUrl: slider1.src },
-                            { imageUrl: slider2.src },
-                            { imageUrl: slider3.src },
-                            { imageUrl: slider4.src },
-                            { imageUrl: slider5.src },
-                            { imageUrl: slider6.src },
-                            { imageUrl: slider7.src },
-                            { imageUrl: slider8.src },
-                            { imageUrl: slider9.src },
-                            { imageUrl: slider10.src },
-                            { imageUrl: slider11.src },
-                            { imageUrl: slider12.src },
-                            { imageUrl: slider13.src },
-                        ]}
-                        options={{
+                    <GallerySlider
+                        slides={sliderImages}
+                        sliderOptions={{
+                            lazyLoad: 'nearby',
+                            autoScroll: {
+                                speed: 1,
+                            },
                             height: 800,
                             breakpoints: {
                                 640: {
                                     height: 300,
+                                },
+                            },
+                            drag: 'free',
+                            focus: 'center',
+                            pagination: false,
+                            // perPage: 2,
+                            // perMove: 1,
+                            gap: '6px',
+                            grid: {
+                                dimensions: [ [ 1, 2 ], [ 2, 2 ], [ 1, 3 ], [ 2, 2 ] ],
+                                // rows: 2,
+		                        // cols: 2,
+                                gap: {
+                                    row: '6px',
+                                    col: '6px',
                                 },
                             },
                         }}
@@ -240,11 +232,7 @@ export default async function Home() {
             </Section>
             <Section
                 title="Jagadhatri Puja"
-                description={
-                    <div className="flex items-center justify-center gap-2">
-                        <span>Countdown <span className="text-yellow-500 font-bold">{year}</span></span>
-                    </div>
-                }
+                description={`Countdown ${year}`}
                 className="bg-gradient-to-b from-white to-gray-50"
             >
                 <div className="flex flex-col gap-8 text-center">
@@ -258,7 +246,7 @@ export default async function Home() {
                                 <Image
                                     width={55}
                                     height={55}
-                                    src={`/assets/dates/${index}.png`}
+                                    src={`/dates/${index}.png`}
                                     alt={item?.event}
                                     quality={100}
                                     className="h-fit rounded-lg"
@@ -266,7 +254,7 @@ export default async function Home() {
                                 <div className="flex flex-col gap-2 text-left">
                                     <span className="font-bold text-gray-800">{item?.information}</span>
                                     <span className="text-gray-600 flex items-center gap-2">
-                                        <FaMapMarkerAlt className="text-yellow-500" />
+                                        <FaCalendarDay className="text-yellow-500" />
                                         {item?.event}: {formatDate(item?.date)}
                                     </span>
                                 </div>

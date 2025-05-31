@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import { FaGlobe } from 'react-icons/fa';
+import { sendGTMEvent } from '@next/third-parties/google';
 
 interface MenuItem {
     name: string;
@@ -20,17 +21,18 @@ const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
     useEffect(() => {
+        sendGTMEvent({ event: 'page_view', value: pathname });
+
+        const controller = new AbortController();
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 5);
         };
 
         handleScroll();
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { signal: controller.signal });
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+        return () => controller.abort();
+    }, [pathname]);
 
     const items: MenuItem[] = [
         { name: 'Home', path: '/' },

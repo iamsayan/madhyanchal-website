@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import React from "react";
 import Script from "next/script"
 import { outfit } from "@/fonts"
-import Loader from "@/components/loader";
-import './globals.sass'
+import { GoogleTagManager } from '@next/third-parties/google'
+import Providers from '@/app/providers';
+import '@/app/globals.sass'
+import '@bprogress/core/css';
 
 export const revalidate = 604800 // 1 week
 
@@ -43,9 +45,11 @@ export const metadata: Metadata = {
     verification: {
         google: 'SYZt9rv7_qvB3hl-_KzC5lcd-yrB4C2hr4tb2q6RyBA',
     },
+    facebook: {
+        appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
+    },
     other: {
         'facebook-domain-verification': '0zt2e0ie65lmgs9vgwe2j434t5cboq',
-        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID!,
         'fb:admins': '100009403062755',
     },
 }
@@ -56,35 +60,29 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
-        <html lang="en" data-theme="light">
+        <html lang="en" data-theme="light" suppressHydrationWarning={process.env.NODE_ENV === 'production'}>
             {process.env.NODE_ENV === 'production' &&
                 <>
-                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
-                    <Script id="google-analytics">
+                    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA4_ID!} dataLayer={{
+                        cookie_prefix: "MsjpsGtag",
+                        cookie_domain: process.env.NEXT_PUBLIC_SITE_URL!,
+                        cookie_flags: "samesite=none;secure",
+                        allow_google_signals: true
+                    }} />
+                    <Script id="statcounter">
                         {`
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"${process.env.NEXT_PUBLIC_SITE_URL}","cookie_flags":"samesite=none;secure","allow_google_signals":true});
+                            var sc_project=11173869; 
+                            var sc_invisible=1; 
+                            var sc_security="87f092e7"; 
                         `}
                     </Script>
+                    <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
                 </>
             }
-            <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
-                {children}
-                <Loader />
-                {process.env.NODE_ENV === 'production' &&
-                    <>
-                        <Script id="statcounter">
-                            {`
-                                var sc_project=11173869; 
-                                var sc_invisible=1; 
-                                var sc_security="87f092e7"; 
-                            `}
-                        </Script>
-                        <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
-                    </>
-                }
+            <body className={`${outfit.className} antialiased overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
+                <Providers>
+                    {children}
+                </Providers>
             </body>
         </html>
     )

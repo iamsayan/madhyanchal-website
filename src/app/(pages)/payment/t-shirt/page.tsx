@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
 import RazorPayTShirt from '@/components/razorpay-t-shirt';
-import Slider from '@/components/slider';
-
-import image1 from '@/public/assets/t-shirt/1.jpg';
-import image2 from '@/public/assets/t-shirt/2.jpg';
-import image3 from '@/public/assets/t-shirt/3.jpg';
+import GallerySlider from '@/components/gallery-slider';
 
 export const metadata: Metadata = {
     title: 'Madhyanchal T-Shirt',
@@ -38,13 +34,14 @@ export default function Page() {
                 </div>
             </div>
             <div className="mb-4">
-                <Slider
-                    slides={[
-                        { imageUrl: image1.src },
-                        { imageUrl: image2.src },
-                        { imageUrl: image3.src },
-                    ]}
-                    options={{
+                <GallerySlider
+                    slides={Array.from({ length: 3 }, (_, i) => ({
+                        src: `static/t-shirt/${i+1}.jpg`,
+                        alt: `Slider Image ${i + 1}`,
+                    }))}
+                    sliderOptions={{
+                        autoScroll: false,
+                        type: 'slide',
                         height: 500,
                         breakpoints: {
                             640: {
