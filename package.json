@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@bprogress/next": "^3.2.12",
-    "@next/third-parties": "^14.2.29",
+    "@next/third-parties": "^15.3.3",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide-extension-auto-scroll": "^0.5.3",
     "@splidejs/splide-extension-grid": "^0.4.1",
@@ -19,7 +19,7 @@
     "classnames": "^2.5.1",
     "daisyui": "^4.12.24",
     "lightgallery": "^2.8.3",
-    "next": "^14.2.29",
+    "next": "^15.3.3",
     "razorpay": "^2.9.6",
     "react": "^18.3.1",
     "react-countdown": "^2.3.6",
