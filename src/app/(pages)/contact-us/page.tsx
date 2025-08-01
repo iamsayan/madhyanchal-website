@@ -26,8 +26,8 @@ export default function Page() {
     return (
         <MainLayout title="Contact Us" jsonLd={jsonLd}>
             <Section
-                title="need any help?"
-                description={<>Contact <span className="text-yellow-500">Us</span></>}
+                title="Need any help?"
+                description="Contact Us"
             >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 pt-12">
                     <div className="bg-white/5 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/10">

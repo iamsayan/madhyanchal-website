@@ -15,7 +15,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
     pathItems = end !== null ? pathItems.slice(0, end) : pathItems;
 
     return (
-        <div className="text-xs breadcrumbs uppercase">
+        <div className="text-xs breadcrumbs text-white/90 capitalize p-0">
             <ul>
                 <li>
                     <Link href="/">Home</Link>

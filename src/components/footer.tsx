@@ -29,13 +29,12 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="p-10 bg-neutral text-neutral-content">
+        <footer className="p-10 bg-gradient-to-r from-neutral-800 via-neutral-900 to-neutral-800 text-neutral-content">
             <div className="footer footer-center container mx-auto">
                 <nav className="grid grid-flow-row md:grid-flow-col gap-2 md:gap-4">
                     {items.map((item, index) => (
                         <div key={index} className="text-xs md:text-sm">
-                            <Link href={item.path} target={item.target ?? '_self'}
-                                className="link link-hover">{item.name}</Link>
+                            <Link href={item.path} target={item.target ?? '_self'} className="link link-hover">{item.name}</Link>
                         </div>
                     ))}
                 </nav>
@@ -59,8 +58,7 @@ export default function Footer() {
                 <aside className="text-slate-400 text-xs">
                     <p>Copyright © {new Date().getFullYear()} Madhyanchal Sarbajanin Jagadhatri Puja Samity. All Rights Reserved.</p>
                     <p>Handcrafted with ❤️ by <a href="https://sayandatta.co.in" target="_blank" rel="noopener">Sayan Datta</a>.</p>
-                    <p>Unauthorized copying or representation of any content / photograph / illustration / artwork
-                        from this website is strictly prohibited.</p>
+                    <p>Unauthorized copying or representation of any content / photograph / illustration / artwork from this website is strictly prohibited.</p>
                 </aside>
             </div>
             <ScrollTop />

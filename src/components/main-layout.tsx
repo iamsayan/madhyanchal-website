@@ -20,7 +20,9 @@ export default function MainLayout({ children, title, jsonLd, breadcrumbTitle, e
                 <div className="hero-overlay bg-slate-900 bg-opacity-70"></div>
                 <div className="flex-col hero-content text-center text-white-content text-white p-0 pt-10">
                     <h1 className={`text-3xl ${paytoneOne.className}`}>{title}</h1>
-                    <Breadcrumbs breadcrumbTitle={breadcrumbTitle} end={end} />
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+                        <Breadcrumbs breadcrumbTitle={breadcrumbTitle} end={end} />
+                    </div>
                 </div>
             </div>
             {children}

@@ -54,7 +54,7 @@ export default function GalleryFilter({ className, images }: GalleryFilterProps)
 
             <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {getFilteredImages.map((item: any, index: number) => (
-                    <div key={index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
+                    <div key={index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer bg-gray-100" onClick={() => lightGallery.current.openGallery(index)}>
                         <TransformedImage
                             src={item}
                             width={500}

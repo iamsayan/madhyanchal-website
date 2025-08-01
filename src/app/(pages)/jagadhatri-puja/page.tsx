@@ -33,21 +33,13 @@ interface SchemaOptions {
 }
 
 export default async function Page() {
-    const siteDataRes = getSingletonData('information');
-    const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
-        sort: { estd: 1 }
-    }));
-
-    const [siteData, pujasData] = await Promise.all([siteDataRes, pujasDataRes]);
-
+    const siteData = await getSingletonData('information');
     const data = siteData ?? null
-    const pujas = pujasData ?? null
 
     const currentYear = new Date().getFullYear();
     const uptoYear = data?.dates[0]?.date ? new Date(data?.dates[0]?.date).getFullYear() : currentYear;
     const displayDate = getDateByIndex(data, 0);
     const dateIsCurrent = uptoYear === displayDate.getFullYear();
-    const jubilee = pujas?.filter((data: any) => jubilees.includes(Number(getYear(data?.estd, uptoYear))));
 
     let schemaData: SchemaOptions = {
         slug: 'jagadhatri-puja',
@@ -109,43 +101,6 @@ export default async function Page() {
                                 </div>
                             </div>
                         ))}
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        <p className="text-xl font-bold text-center mt-4">🎉 Jubilee Celebrations 🎉</p>
-                        <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-6 rounded-xl shadow-md mb-4">
-                            <p className="text-center text-md md:text-lg">
-                                Congratulations to <span className="font-bold text-yellow-600">{jubilee?.length} Puja Committees</span> on achieving this remarkable milestone!
-                                Your dedication to preserving our cultural heritage is truly commendable.
-                            </p>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="table text-center table-zebra w-full bg-white rounded-xl overflow-hidden">
-                                <thead className="bg-yellow-500 text-white">
-                                    <tr>
-                                        <th className="py-4">Sl. No.</th>
-                                        <th className="py-4">Puja Name</th>
-                                        <th className="py-4">Under P. S.</th>
-                                        <th className="py-4">Years</th>
-                                        <th className="py-4">{dateIsCurrent ? 'Celebrating' : 'Celebrated'}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {jubilee?.map((item: any, index: number) => {
-                                        const y = getYear(item?.estd, uptoYear);
-                                        const cel = getCelebrating(y);
-                                        return (
-                                            <tr key={index} className='hover:bg-yellow-50 transition-colors duration-150'>
-                                                <td className="py-3">{index + 1}</td>
-                                                <td className="py-3 font-medium">{item?.puja_name}</td>
-                                                <td className="py-3">{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                                <td className="py-3 font-medium">{y}</td>
-                                                <td className="py-3 text-yellow-600 font-medium">{cel}</td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </Section>
