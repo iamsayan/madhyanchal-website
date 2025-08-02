@@ -3,6 +3,8 @@ const nextConfig = {
     env: {
         API_URL: process.env.API_URL,
         API_KEY: process.env.API_KEY,
+        SMTP_USER: process.env.SMTP_USER,
+        SMTP_PASS: process.env.SMTP_PASS,
         WEB3_FORM_API_KEY: process.env.WEB3_FORM_ACCESS_KEY,
         GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
         RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,

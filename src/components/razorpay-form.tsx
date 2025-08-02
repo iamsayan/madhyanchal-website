@@ -2,7 +2,8 @@
 
 import { useState, FormEvent } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
-import Script from 'next/script'
+import { createRazorpayOrder } from '@/app/actions/razorpay';
+import { loadRazorpayScript } from '@/utils/load-razorpay';
 
 declare global {
     interface Window {
@@ -39,6 +40,12 @@ export default function RazorPayForm({ type }: { type: string }) {
     const handlePayment = async (e: FormEvent) => {
         e.preventDefault();
 
+        const loaded = await loadRazorpayScript();
+        if (!loaded || !window.Razorpay) {
+            setError('Failed to load Razorpay SDK');
+            return;
+        }
+
         if (!formData.name || !formData.email || !formData.phone || !formData.amount) {
             setError('Please fill in all fields');
             return;
@@ -48,18 +55,15 @@ export default function RazorPayForm({ type }: { type: string }) {
             setProcessing(true);
             const amountInPaise = Math.round(parseFloat(formData.amount) * 100);
 
-            const orderResponse = await fetch('/api/razorpay/create-order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    amount: amountInPaise,
-                    type,
-                }),
+            const orderResponse = await createRazorpayOrder({
+                ...formData,
+                amount: amountInPaise,
+                type,
             });
-            const { orderId } = await orderResponse.json();
+
+            if (!orderResponse.success) {
+                throw new Error(orderResponse.error ?? 'Error creating order');
+            }
 
             const options = {
                 key: process.env.RAZORPAY_KEY_ID!,
@@ -67,7 +71,7 @@ export default function RazorPayForm({ type }: { type: string }) {
                 currency: "INR",
                 name: "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 description: "Payment of ₹" + formData.amount + " for " + formData.name,
-                order_id: orderId,
+                order_id: orderResponse.orderId,
                 notes: {
                     email: formData.email,
                     name: formData.name,
@@ -75,7 +79,6 @@ export default function RazorPayForm({ type }: { type: string }) {
                     type,
                 },
                 handler: function (response: any) {
-                    console.log(response);
                     setSuccess({ paymentId: response.razorpay_payment_id });
                     setProcessing(false);
                 },
@@ -107,10 +110,6 @@ export default function RazorPayForm({ type }: { type: string }) {
 
     return (
         <>
-            <Script
-                src="https://checkout.razorpay.com/v1/checkout.js"
-                strategy="beforeInteractive"
-            />
             {success && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">

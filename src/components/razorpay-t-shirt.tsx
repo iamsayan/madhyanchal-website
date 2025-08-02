@@ -2,7 +2,8 @@
 
 import { useState, FormEvent } from 'react';
 import { BiLoaderAlt } from 'react-icons/bi';
-import Script from 'next/script'
+import { createRazorpayOrder } from '@/app/actions/razorpay';
+import { loadRazorpayScript } from '@/utils/load-razorpay';
 
 declare global {
     interface Window {
@@ -97,6 +98,12 @@ export default function RazorPayTShirt() {
     const handlePayment = async (e: FormEvent) => {
         e.preventDefault();
 
+        const loaded = await loadRazorpayScript();
+        if (!loaded || !window.Razorpay) {
+            setError('Failed to load Razorpay SDK');
+            return;
+        }
+
         if (!formData.name || !formData.email || !formData.phone) {
             setError('Please fill in all required fields');
             return;
@@ -112,18 +119,11 @@ export default function RazorPayTShirt() {
             setProcessing(true);
             const amountInPaise = totalAmount * 100;
 
-            const orderResponse = await fetch('/api/razorpay/create-order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    amount: amountInPaise,
-                    type: 't-shirt',
-                }),
+            const orderResponse = await createRazorpayOrder({
+                ...formData,
+                amount: amountInPaise,
+                type: 't-shirt',
             });
-            const { orderId } = await orderResponse.json();
 
             const options = {
                 key: process.env.RAZORPAY_KEY_ID!,
@@ -131,7 +131,7 @@ export default function RazorPayTShirt() {
                 currency: "INR",
                 name: "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
                 description: "Payment of T-Shirt Order of ₹" + totalAmount + " for " + formData.name,
-                order_id: orderId,
+                order_id: orderResponse.orderId,
                 notes: {
                     ...formData,
                     type: 't-shirt',
@@ -169,10 +169,6 @@ export default function RazorPayTShirt() {
 
     return (
         <>
-            <Script
-                src="https://checkout.razorpay.com/v1/checkout.js"
-                strategy="beforeInteractive"
-            />
             {success && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
