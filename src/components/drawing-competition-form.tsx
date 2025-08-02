@@ -272,7 +272,7 @@ export default function DrawingCompetitionForm() {
         
         try {
             const res = await submitModel(`drawingcompetition${new Date().getFullYear()}`, {
-                registration_id: `MSDPS/DC/${new Date().getFullYear()}/${Date.now().toString().slice(-8)}`,
+                registration_id: `DC/${new Date().getFullYear()}/${Date.now().toString().slice(-8)}`,
                 mode: 'online',
                 name: formData.participantName,
                 dob: formData.dateOfBirth,
