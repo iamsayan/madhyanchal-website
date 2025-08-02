@@ -17,6 +17,8 @@ interface DrawingCompetitionFormData {
     email: string;
     phone: string;
     address: string;
+    city: string;
+    pinCode: string;
 }
 
 interface FormErrors {
@@ -28,9 +30,11 @@ interface FormErrors {
     email?: string;
     phone?: string;
     address?: string;
+    city?: string;
+    pinCode?: string;
 }
 
-const competitionDate = new Date('2025-09-21 09:00');
+const competitionDate = new Date('2025-09-21 10:00:00');
 
 const translations = {
     en: {
@@ -62,7 +66,11 @@ const translations = {
         phone: "Phone Number",
         enterPhone: "Enter your phone number",
         address: "Address",
-        enterAddress: "Enter your complete address with pincode",
+        city: "City",
+        pinCode: "Pin Code",
+        enterCity: "Enter your city",
+        enterPinCode: "Enter your pin code",
+        enterAddress: "Enter your complete address",
         termsConditions: "Terms & Conditions",
         submitRegistration: "Register",
         submitting: "Submitting...",
@@ -87,6 +95,8 @@ const translations = {
             email: "Email is required",
             phone: "Phone number is required",
             address: "Address is required",
+            city: "City is required",
+            pinCode: "Pin code is required",
         }
     },
     bn: {
@@ -118,7 +128,11 @@ const translations = {
         phone: "ফোন নম্বর",
         enterPhone: "আপনার ফোন নম্বর লিখুন",
         address: "ঠিকানা",
-        enterAddress: "পূর্ণ ঠিকানা পিনকোড সহ লিখুন",
+        enterAddress: "পূর্ণ ঠিকানা লিখুন",
+        city: "শহর",
+        pinCode: "পিনকোড",
+        enterCity: "আপনার শহর লিখুন",
+        enterPinCode: "আপনার পিনকোড লিখুন",
         termsConditions: "শর্তাবলী",
         submitRegistration: "রেজিস্টার",
         submitting: "জমা হচ্ছে...",
@@ -143,6 +157,8 @@ const translations = {
             email: "ইমেইল প্রয়োজন",
             phone: "ফোন নম্বর প্রয়োজন",
             address: "ঠিকানা প্রয়োজন",
+            city: "শহর প্রয়োজন",
+            pinCode: "পিনকোড প্রয়োজন",
         }
     }
 };
@@ -161,6 +177,8 @@ export default function DrawingCompetitionForm() {
         email: '',
         phone: '',
         address: '',
+        city: '',
+        pinCode: '',
     });
     const [errors, setErrors] = useState<FormErrors>({});
 
@@ -257,6 +275,14 @@ export default function DrawingCompetitionForm() {
             newErrors.address = t.errorMessages.address;
         }
 
+        if (!formData.city.trim()) {
+            newErrors.city = t.errorMessages.city;
+        }
+
+        if (!formData.pinCode.trim()) {
+            newErrors.pinCode = t.errorMessages.pinCode;
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -272,7 +298,7 @@ export default function DrawingCompetitionForm() {
         
         try {
             const res = await submitModel(`drawingcompetition${new Date().getFullYear()}`, {
-                registration_id: `DC/${new Date().getFullYear()}/${Date.now().toString().slice(-8)}`,
+                registration_id: `DC/${Date.now().toString().slice(-8)}`,
                 mode: 'online',
                 name: formData.participantName,
                 dob: formData.dateOfBirth,
@@ -282,6 +308,8 @@ export default function DrawingCompetitionForm() {
                 email: formData.email,
                 phone: formData.phone,
                 address: formData.address,
+                city: formData.city,
+                pincode: formData.pinCode,
             });
 
             if (!res.success) {
@@ -395,6 +423,8 @@ export default function DrawingCompetitionForm() {
                 email: '',
                 phone: '',
                 address: '',
+                city: '',
+                pinCode: '',
             });
         } catch (error) {
             console.error(error);
@@ -709,25 +739,61 @@ export default function DrawingCompetitionForm() {
                                             <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone}</p>
                                         )}
                                     </div>
-                                </div>
 
-                                <div className="mt-4">
-                                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                                        {t.address} <span className="text-red-500">*</span>
-                                    </label>
-                                    <textarea
-                                        name="address"
-                                        value={formData.address}
-                                        onChange={handleInputChange}
-                                        rows={3}
-                                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                                            errors.address ? 'border-red-500' : 'border-gray-300'
-                                        }`}
-                                        placeholder={t.enterAddress}
-                                    />
-                                    {errors.address && (
-                                        <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.address}</p>
-                                    )}
+                                    <div className="col-span-1 md:col-span-2">
+                                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                                            {t.address} <span className="text-red-500">*</span>
+                                        </label>
+                                        <textarea
+                                            name="address"
+                                            value={formData.address}
+                                            onChange={handleInputChange}
+                                            rows={3}
+                                            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                                errors.address ? 'border-red-500' : 'border-gray-300'
+                                            }`}
+                                            placeholder={t.enterAddress}
+                                        />
+                                        {errors.address && (
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.address}</p>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                                            {t.city} <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            name="city"
+                                            value={formData.city}
+                                            onChange={handleInputChange}
+                                            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                                errors.city ? 'border-red-500' : 'border-gray-300'
+                                            }`}
+                                            placeholder={t.enterCity}
+                                        />
+                                        {errors.city && (
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.city}</p>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                                            {t.pinCode} <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            name="pinCode"
+                                            value={formData.pinCode}
+                                            onChange={handleInputChange}
+                                            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                                errors.pinCode ? 'border-red-500' : 'border-gray-300'
+                                            }`}
+                                            placeholder={t.enterPinCode}
+                                        />
+                                        {errors.pinCode && (
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.pinCode}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
