@@ -34,7 +34,7 @@ interface FormErrors {
     pinCode?: string;
 }
 
-const competitionDate = new Date('2025-09-21 10:00:00');
+const competitionDate = new Date('2025-09-21 09:00:00');
 
 const translations = {
     en: {
@@ -77,8 +77,9 @@ const translations = {
         rules: "Rules & Guidelines:",
         rulesList: [
             "No entry fee required.",
-            "Participants must arrive 1 hour before the competition starts.",
+            //"Participants must arrive 1 hour before the competition starts.",
             "Drawing paper will be provided by the organizers only.",
+            "Participants must bring their own colors and other required materials.",
             "The decision of the judges will be final.",
             "Age proof certificate photocopy must be brought on the competition day.",
             "Any type of color can be used for drawing, but sketch pen or scale cannot be used.",
@@ -139,8 +140,9 @@ const translations = {
         rules: "নিয়মাবলী:",
         rulesList: [
             "কোনো প্রবেশ মূল্য নেই।",
-            "প্রতিযোগিতা শুরু হওয়ার ১ ঘণ্টা পূর্বে উপস্থিত হতে হবে।",
+            //"প্রতিযোগিতা শুরু হওয়ার ১ ঘণ্টা পূর্বে উপস্থিত হতে হবে।",
             "অঙ্কন প্রতিযোগীদের, আয়োজকদের পক্ষ থেকে শুধুমাত্র আঁকার কাগজ দেওয়া হবে।",
+            "রং ও অন্যান্য প্রয়োজনীয় সামগ্রী প্রতিযোগীদের নিজস্বভাবে আনতে হবে।",
             "বিচারকমণ্ডলীর সিদ্ধান্ত চূড়ান্ত বলে গণ্য হবে।",
             "প্রতিযোগিতার দিন, প্রতিযোগীদের বয়সের প্রমানপত্রের ফটোকপি আনতে হবে।",
             "ভুল তথ্য দিলে প্রতিযোগিতা থেকে বাদ দেওয়া হবে।",
@@ -321,90 +323,96 @@ export default function DrawingCompetitionForm() {
                 to: formData.email,
                 subject: `Drawing Competition Registration ${new Date().getFullYear()}`,
                 html: `
-                  <div style="font-family: 'Segoe UI', Arial, sans-serif; background: #f4f8fb; padding: 32px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 520px; margin: auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden;">
+                  <!--[if mso]>
+                  <style type="text/css">
+                    .mobile-padding { padding: 16px !important; }
+                  </style>
+                  <![endif]-->
+                  <div style="font-family: 'Segoe UI', Arial, sans-serif; background: #f4f8fb; padding: 16px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px; width:100%; margin:auto; background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,0.07); overflow:hidden;">
                       <tr>
-                        <td style="background: linear-gradient(90deg, #4f8ef7 0%, #6c63ff 100%); padding: 24px 0; text-align: center;">
-                          <img src="https://www.madhyanchalsarbajanin.co.in/logo.png" alt="Madhyanchal Logo" width="65" style="margin-bottom: 8px;" />
-                          <h2 style="color: #fff; margin: 0; font-size: 1.5rem;">Drawing Competition ${new Date().getFullYear()}</h2>
+                        <td style="background:linear-gradient(90deg,#4f8ef7 0%,#6c63ff 100%); padding:20px 0; text-align:center;">
+                          <img src="https://www.madhyanchalsarbajanin.co.in/logo.png" alt="Madhyanchal Logo" width="55" style="margin-bottom:8px; max-width:90vw; height:auto;" />
+                          <h2 style="color:#fff; margin:0; font-size:1.2rem;">Drawing Competition</h2>
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 32px 24px 24px 24px;">
-                          <p style="font-size: 1.1rem; color: #222; margin-bottom: 18px;">
+                        <td style="padding:24px 10px 18px 10px;" class="mobile-padding">
+                          <p style="font-size:1rem; color:#222; margin-bottom:14px; margin-top:0;">
                             Dear Participant,
                           </p>
-                          <p style="font-size: 1rem; color: #444; margin-bottom: 18px;">
+                          <p style="font-size:0.95rem; color:#444; margin-bottom:14px; margin-top:0;">
                             Thank you for registering for the <strong>Drawing Competition ${new Date().getFullYear()}</strong> organized by <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong>.
                           </p>
-                          <div style="background: #f0f7ff; border-radius: 8px; padding: 18px; margin-bottom: 18px; text-align: center;">
-                            <span style="display: block; color: #6c63ff; font-size: 0.95rem; margin-bottom: 6px;">Your Registration ID</span>
-                            <span style="font-size: 1.3rem; font-weight: bold; color: #4f8ef7; letter-spacing: 1px;">${res.response.registration_id}</span>
+                          <div style="background:#f0f7ff; border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">
+                            <span style="display:block; color:#6c63ff; font-size:0.92rem; margin-bottom:4px;">Your Registration ID</span>
+                            <span style="font-size:1.1rem; font-weight:bold; color:#4f8ef7; letter-spacing:1px;">${res.response.registration_id}</span>
                           </div>
-                          <p style="font-size: 1rem; color: #444; margin-bottom: 18px;">
+                          <p style="font-size:0.95rem; color:#444; margin-bottom:14px; margin-top:0;">
                             Please keep this email safe and show it at the registration desk on the day of the competition.
                           </p>
-                          <table width="100%" cellpadding="0" cellspacing="0" style="margin: 18px 0 18px 0; background: #f8fafc; border-radius: 8px;">
+                          <table width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 14px 0; background:#f8fafc; border-radius:8px;">
                             <tr>
-                              <td colspan="2" style="padding: 10px 0 0 0;">
-                                <h3 style="font-size: 1.05rem; color: #4f8ef7; margin: 0 0 10px 0; text-align: center;">Registration Details</h3>
+                              <td colspan="2" style="padding:8px 0 0 0;">
+                                <h3 style="font-size:0.98rem; color:#4f8ef7; margin:0 0 8px 0; text-align:center;">Registration Details</h3>
                               </td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500; width: 45%;">Participant Name:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.participantName}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500; width:45%;">Participant Name:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.participantName}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Date of Birth:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.dateOfBirth}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Date of Birth:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.dateOfBirth}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Age:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.age}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Age:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.age}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Category:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.category}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Category:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.category}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Guardian Name:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.guardianName}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Guardian Name:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.guardianName}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Email:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.email}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Email:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.email}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Phone:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.phone}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Phone:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.phone}</td>
                             </tr>
                             <tr>
-                              <td style="padding: 6px 12px; color: #555; font-weight: 500;">Address:</td>
-                              <td style="padding: 6px 12px; color: #222;">${formData.address}</td>
+                              <td style="padding:5px 8px; color:#555; font-weight:500;">Address:</td>
+                              <td style="padding:5px 8px; color:#222;">${formData.address}, ${formData.city}, ${formData.pinCode}</td>
                             </tr>
                           </table>
-                          <p style="font-size: 0.98rem; color: #666; margin-bottom: 0;">
+                          <p style="font-size:0.93rem; color:#666; margin-bottom:0; margin-top:10px;">
                             <strong>Date:</strong> <span style="color:#222;">${competitionDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span><br/>
-                            <strong>Reporting Time:</strong> <span style="color:#222;">${competitionDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span><br/>
+                            <strong>Time:</strong> <span style="color:#222;">${competitionDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span><br/>
                             <strong>Venue:</strong> <span style="color:#222;">Madhyanchal Puja Premises, Madhyanchal, Station Road, Chandannagar, Hooghly - 712136</span><br/>
                             <strong>Address:</strong>
-                            <span style="color:#222; display: inline-block; margin-top: 2px;">
-                              <span style="color: #4f8ef7; font-size: 0.97em;">
-                                <a href="https://maps.app.goo.gl/RBeufNNJXigCxvMeA" target="_blank" rel="noopener noreferrer" style="color: #4f8ef7; text-decoration: underline;">
+                            <span style="color:#222; display:inline-block; margin-top:2px;">
+                              <span style="color:#4f8ef7; font-size:0.95em;">
+                                <a href="https://maps.app.goo.gl/RBeufNNJXigCxvMeA" target="_blank" rel="noopener noreferrer" style="color:#4f8ef7; text-decoration:underline;">
                                   View on Google Maps
                                 </a>
                               </span>
                             </span>
                             <br/>
+                            <strong>Required:</strong> <span style="color:#222;">Valid Date of Birth Certificate Photocopy</span><br/>
                           </p>
-                          <hr style="border: none; border-top: 1px solid #e3e8ee; margin: 24px 0 12px 0;" />
-                          <p style="font-size: 0.95rem; color: #888; text-align: center;">
-                            For any queries, reply to this email or contact us at <a href="mailto:${process.env.SMTP_USER}" style="color: #4f8ef7; text-decoration: none;">${process.env.SMTP_USER}</a>
+                          <hr style="border:none; border-top:1px solid #e3e8ee; margin:18px 0 10px 0;" />
+                          <p style="font-size:0.92rem; color:#888; text-align:center; margin:0;">
+                            For any queries, reply to this email or contact us at <a href="mailto:${process.env.SMTP_USER}" style="color:#4f8ef7; text-decoration:none;">${process.env.SMTP_USER}</a>
                           </p>
                         </td>
                       </tr>
                     </table>
-                    <p style="text-align: center; color: #b0b8c1; font-size: 0.9rem; margin-top: 24px;">
+                    <p style="text-align:center; color:#b0b8c1; font-size:0.85rem; margin-top:18px;">
                       &copy; ${new Date().getFullYear()} Madhyanchal Sarbajanin Durga Puja Samity
                     </p>
                   </div>
@@ -447,7 +455,7 @@ export default function DrawingCompetitionForm() {
                             </div>
                             <h3 className="text-xl font-bold text-green-600 mb-2">Registration Successful!</h3>
                             <p className="text-sm text-gray-500 mb-2">Registration ID: <span className="font-bold">{success.registrationId}</span></p>
-                            <p className="text-sm text-gray-500 mb-4">A confirmation email has been sent. Please show it on competition day.</p>
+                            <p className="text-sm text-gray-500 mb-4">A confirmation email has been sent to your email address. Please show it on competition day.</p>
                             <button
                                 onClick={() => window.location.reload()}
                                 className="w-full py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
@@ -726,7 +734,6 @@ export default function DrawingCompetitionForm() {
                                             {t.phone} <span className="text-red-500">*</span>
                                         </label>
                                         <input
-                                            type="tel"
                                             name="phone"
                                             value={formData.phone}
                                             onChange={handleInputChange}
@@ -734,6 +741,8 @@ export default function DrawingCompetitionForm() {
                                                 errors.phone ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={t.enterPhone}
+                                            pattern="\d{10}"
+                                            maxLength={10}
                                         />
                                         {errors.phone && (
                                             <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone}</p>
@@ -788,6 +797,8 @@ export default function DrawingCompetitionForm() {
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.pinCode ? 'border-red-500' : 'border-gray-300'
                                             }`}
+                                            pattern="\d{6}"
+                                            maxLength={6}
                                             placeholder={t.enterPinCode}
                                         />
                                         {errors.pinCode && (

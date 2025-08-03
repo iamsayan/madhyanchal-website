@@ -5,8 +5,8 @@ import schema from "@/utils/schema";
 import { paytoneOne } from "@/fonts";
 
 export const metadata: Metadata = {
-    title: 'Durga Puja 2024 - Madhyanchal Sarbajanin Jagadhatri Puja Samity',
-    description: 'Experience the divine celebration of Durga Puja 2024 at Madhyanchal, Chandannagar. Join us for traditional rituals, cultural programs, and spiritual festivities.',
+    title: `Durga Puja ${new Date().getFullYear()} - Madhyanchal Sarbajanin Durga Puja Samity`,
+    description: `Experience the divine celebration of Durga Puja ${new Date().getFullYear()} at Madhyanchal, Chandannagar. Join us for traditional rituals, cultural programs, and spiritual festivities.`,
     openGraph: {
         url: '/durgapuja',
     },
@@ -72,7 +72,7 @@ export default async function Page() {
                     <div className="space-y-4">
                         <h3 className="text-2xl font-semibold text-gray-800">Traditional Celebrations</h3>
                         <p className="text-gray-600 leading-relaxed">
-                            Durga Puja is the most significant festival celebrated at Madhyanchal Sarbajanin Jagadhatri Puja Samity. 
+                            Durga Puja is the most significant festival celebrated at Madhyanchal Sarbajanin Durga Puja Samity. 
                             This five-day festival marks the victory of Goddess Durga over the demon Mahishasura, symbolizing the triumph 
                             of good over evil. Our celebrations include traditional rituals, cultural programs, and community gatherings.
                         </p>
@@ -189,7 +189,7 @@ export default async function Page() {
                                 <div className="flex items-start space-x-3">
                                     <span className="text-orange-500 mt-1">📍</span>
                                     <div>
-                                        <p className="font-medium">Madhyanchal Sarbajanin Jagadhatri Puja Samity</p>
+                                        <p className="font-medium">Madhyanchal Sarbajanin Durga Puja Samity</p>
                                         <p className="text-gray-600">Station Road, Chandannagar, Hooghly – 712136</p>
                                     </div>
                                 </div>
