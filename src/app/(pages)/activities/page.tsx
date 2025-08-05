@@ -4,11 +4,13 @@ import Section from '@/components/section';
 import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
 import { FaPalette, FaHandsHelping, FaLeaf, FaHeart, FaCertificate, FaStar } from 'react-icons/fa';
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Social Activities',
     description: 'Social Activities of Madhyanchal Sarbajanin Jagadhatri Puja Samity',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/activities',
     },
     alternates: {

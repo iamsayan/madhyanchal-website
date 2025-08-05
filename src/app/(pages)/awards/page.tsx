@@ -4,13 +4,15 @@ import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
-import { awards, type Award, type Awards } from '@/data/awards';
+import { awards, type Award } from '@/data/awards';
 import { FaTrophy, FaPalette, FaLandmark, FaHandsHelping, FaLeaf, FaHeart, FaCertificate, FaStar, FaAward, FaMedal } from 'react-icons/fa';
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Our Awards',
     description: 'Explore the prestigious awards and accolades received by Madhyanchal Sarbajanin Jagadhatri Puja Samity. Recognized for excellence in creativity, cultural heritage, and community impact, our awards highlight milestones from road lighting to idol decoration.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/awards',
     },
     alternates: {

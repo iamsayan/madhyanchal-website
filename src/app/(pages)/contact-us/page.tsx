@@ -4,12 +4,14 @@ import Contact from "@/components/contact";
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Contact Us',
     description: 'Get in touch with Madhyanchal Sarbajanin Jagadhatri Puja Samity for inquiries, sponsorships, and collaborations. Located at Station Road, Chandannagar, our dedicated team is here to assist with your questions about our cultural and community initiatives. Reach out via email, phone, or our online contact form. Explore how you can be part of our journey blending tradition, art, and social responsibility.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/contact-us',
     },
     alternates: {

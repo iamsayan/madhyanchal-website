@@ -1,16 +1,14 @@
 import type { Metadata } from 'next'
-import Image from 'next/image';
-import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
-
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
-import { shuffle } from "@/utils/functions";
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'About Us',
     description: 'Discover the heart of Madhyanchal Sarbajanin Jagadhatri Puja Samity, a beacon of cultural and social heritage since 1971.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/about-us',
     },
     alternates: {

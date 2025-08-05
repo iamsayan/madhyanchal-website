@@ -5,14 +5,21 @@ import schema from "@/utils/schema";
 import { paytoneOne } from "@/fonts";
 
 export const metadata: Metadata = {
-    title: `Durga Puja ${new Date().getFullYear()} - Madhyanchal Sarbajanin Durga Puja Samity`,
+    title: {
+        absolute: `Durga Puja ${new Date().getFullYear()}`,
+    },
     description: `Experience the divine celebration of Durga Puja ${new Date().getFullYear()} at Madhyanchal, Chandannagar. Join us for traditional rituals, cultural programs, and spiritual festivities.`,
     openGraph: {
-        url: '/durgapuja',
+        siteName: 'Madhyanchal Sarbajanin Durga Puja Samity',
+        locale: 'en_US',
+        type: 'website',
+        url: '/durgapuja'
     },
     alternates: {
         canonical: '/durgapuja',
     },
+    keywords: ['durga puja', 'chandannagar', 'madhyanchal'],
+    publisher: 'Madhyanchal Sarbajanin Durga Puja Samity',
 }
 
 export default async function Page() {

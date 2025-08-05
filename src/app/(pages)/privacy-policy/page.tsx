@@ -2,11 +2,13 @@ import type { Metadata } from 'next'
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Privacy Policy',
     description: 'Explore the privacy policy of Madhyanchal Sarbajanin Jagadhatri Puja Samity. Learn how we protect your personal information, ensure your privacy, and comply with data security regulations. Our commitment to safeguarding your data and transparency in how we collect, use, and protect your information is outlined clearly in this policy.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/privacy-policy',
     },
     alternates: {

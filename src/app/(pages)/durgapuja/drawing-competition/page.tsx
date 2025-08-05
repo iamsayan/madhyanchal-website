@@ -2,21 +2,21 @@ import type { Metadata } from 'next'
 import DrawingCompetitionForm from '@/components/drawing-competition-form';
 
 export const metadata: Metadata = {
-    title: 'Drawing Competition Registration - Madhyanchal Sarbajanin Durga Puja Samity',
+    title: {
+        absolute: 'Drawing Competition Registration',
+    },
     description: 'Register for the drawing competition organized by Madhyanchal Sarbajanin Durga Puja Samity. Open to all age groups with exciting prizes.',
     alternates: {
-        canonical: '/drawing-competition',
+        canonical: '/durgapuja/drawing-competition',
     },
     openGraph: {
-        title: 'Drawing Competition Registration',
-        description: 'Register for the drawing competition organized by Madhyanchal Sarbajanin Durga Puja Samity',
+        siteName: 'Madhyanchal Sarbajanin Durga Puja Samity',
+        locale: 'en_US',
         type: 'website',
+        url: '/durgapuja/drawing-competition'
     },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Drawing Competition Registration',
-        description: 'Register for the drawing competition organized by Madhyanchal Sarbajanin Durga Puja Samity',
-    },
+    keywords: ['durga puja', 'chandannagar', 'madhyanchal'],
+    publisher: 'Madhyanchal Sarbajanin Durga Puja Samity',
 }
 
 export default function Page() {

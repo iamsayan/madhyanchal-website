@@ -2,11 +2,13 @@ import type { Metadata } from 'next'
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Terms & Conditions',
     description: 'Explore the terms and conditions for Madhyanchal Sarbajanin Jagadhatri Puja Samity. Understand our website policies, user guidelines, and event rules to ensure a seamless experience with our services.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/terms',
     },
     alternates: {

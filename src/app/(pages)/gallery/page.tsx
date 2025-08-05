@@ -4,11 +4,13 @@ import Section from "@/components/section";
 import schema from "@/utils/schema";
 import { getImagesData } from "@/utils/fetch";
 import GalleryFilter from "@/components/gallery-filter";
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata = {
     title: 'Photo Gallery',
     description: 'View the collection of photos of Madhyanchal Sarbajanin Jagadhatri Puja Samity.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/gallery',
     },
     alternates: {

@@ -1,10 +1,11 @@
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import { getCollectionData, getSingletonData } from "@/utils/fetch";
+import { getSingletonData } from "@/utils/fetch";
 import schema from "@/utils/schema";
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import { formatDate, getYear, generateUrlSearchParams, jubilees, getDateByIndex, getCelebrating } from '@/utils/functions';
+import { formatDate, getDateByIndex } from '@/utils/functions';
 import Image from 'next/image';
+import { metadata as rootMetadata } from '@/app/layout';
 
 export async function generateMetadata() {
     const siteDataRes = await getSingletonData('information');
@@ -16,6 +17,7 @@ export async function generateMetadata() {
         title: `Jagadhatri Puja ${uptoYear} Schedule, Jubilee List`,
         description: `Join us in celebrating the grandeur of Jagadhatri Puja in ${uptoYear} with Madhyanchal Sarbajanin Jagadhatri Puja Samity. Discover event details, rituals, schedules, and how we bring together the community to honor the Goddess Jagadhatri. Be part of this auspicious occasion with us.`,
         openGraph: {
+            ...rootMetadata.openGraph,
             url: '/jagadhatri-puja',
         },
         alternates: {

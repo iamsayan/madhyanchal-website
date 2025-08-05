@@ -5,11 +5,13 @@ import GallerySlider from '@/components/gallery-slider';
 import schema from "@/utils/schema";
 import { FaCircleCheck, FaCheck, FaLocationDot, FaEnvelope, FaPhone, FaArrowRight } from "react-icons/fa6";
 import { FaFileDownload } from 'react-icons/fa';
+import { metadata as rootMetadata } from '@/app/layout';
 
 export const metadata: Metadata = {
     title: 'Advertise with Us',
     description: 'Since 1971, Madhyanchal Sarbajanin Jagadhatri Puja Samity has been at the heart of Chandannagar’s cultural heritage, drawing massive crowds during its annual festivities. Partner with us to elevate your brand’s presence among a diverse and engaged audience during this highly anticipated event.',
     openGraph: {
+        ...rootMetadata.openGraph,
         url: '/advertise',
     },
     alternates: {

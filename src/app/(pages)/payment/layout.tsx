@@ -1,5 +1,19 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import logo from '@/public/new-logo.png';
+
+export const metadata: Metadata = {
+    robots: {
+        index: false,
+        follow: false,
+        googleBot: {
+            index: false,
+            follow: false,
+        },
+    },
+    openGraph: null,
+    twitter: null,
+}
 
 interface LayoutProps {
     children: React.ReactNode;

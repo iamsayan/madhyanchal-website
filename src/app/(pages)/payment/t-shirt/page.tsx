@@ -8,12 +8,6 @@ export const metadata: Metadata = {
     alternates: {
         canonical: '/payment/t-shirt',
     },
-    openGraph: null,
-    twitter: null,
-    robots: {
-        index: false,
-        follow: false,
-    },
 }
 
 export default function Page() {
