@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { FaSpinner } from 'react-icons/fa';
+import { FaEnvelope, FaSpinner, FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
 import logo from '@/public/logo.png';
 import { anekBangla } from '@/fonts';
@@ -750,6 +750,41 @@ export default function DrawingCompetitionForm() {
                                         t.submitRegistration
                                     )}
                                 </button>
+                            </div>
+                            
+                            {/* Contact Information */}
+                            <div className="bg-gray-50 p-4 sm:p-6 md:p-8 rounded-lg text-center">
+                                <h3 className="text-lg font-semibold text-gray-800 mb-2">{language === 'en' ? 'Contact Information' : 'যোগাযোগের তথ্য'}</h3>
+                                <p className="text-xs sm:text-sm text-gray-600 mb-4">
+                                    {language === 'en' 
+                                        ? 'For any queries about the drawing competition, please contact us:'
+                                        : 'অঙ্কন প্রতিযোগিতা সম্পর্কে কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করুন:'
+                                    }
+                                </p>
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-1 justify-center text-center">
+                                        <span className="text-blue-600"><FaEnvelope /></span>
+                                        <span className="text-xs sm:text-sm text-gray-700">{language === 'en' ? 'Email:' : 'ইমেইল:'}</span>
+                                        <a 
+                                            href="mailto:madhyanchalsarbajanin@gmail.com"
+                                            className="text-xs sm:text-sm text-blue-600 hover:text-blue-700"
+                                        >
+                                            madhyanchalsarbajanin@gmail.com
+                                        </a>
+                                    </div>
+                                    <div className="flex items-center gap-1 justify-center">
+                                        <span className="text-green-600"><FaWhatsapp /></span>
+                                        <span className="text-xs sm:text-sm text-gray-700">{language === 'en' ? 'WhatsApp:' : 'হোয়াটসঅ্যাপ:'}</span>
+                                        <a 
+                                            href="https://wa.me/917686943894" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="text-xs sm:text-sm text-green-600 hover:text-green-700"
+                                        >
+                                            +91-7686943894
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
