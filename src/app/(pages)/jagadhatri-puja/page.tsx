@@ -27,7 +27,7 @@ export async function generateMetadata() {
 }
 
 interface SchemaOptions {
-    slug: string;
+    path: string;
     title: string;
     description?: string;
     start?: Date;
@@ -44,7 +44,7 @@ export default async function Page() {
     const dateIsCurrent = uptoYear === displayDate.getFullYear();
 
     let schemaData: SchemaOptions = {
-        slug: 'jagadhatri-puja',
+        path: 'jagadhatri-puja',
         title: `Jagadhatri Puja ${uptoYear} Schedule, Jubilee List`,
     };
 

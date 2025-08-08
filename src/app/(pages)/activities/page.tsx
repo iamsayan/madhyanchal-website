@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
     const jsonLd = schema({
-        slug: 'activities',
+        path: 'activities',
         title: 'Social Activities of Madhyanchal Sarbajanin Jagadhatri Puja Samity',
     })
 

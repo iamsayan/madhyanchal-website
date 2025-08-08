@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     const jsonLd = schema({
-        slug: 'privacy-policy',
+        path: 'privacy-policy',
         title: 'Privacy Policy',
     })
 

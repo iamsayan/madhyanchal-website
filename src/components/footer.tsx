@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaYoutube, FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa6";
+import { FaYoutube, FaFacebookF, FaInstagram, FaWhatsapp, FaHeart } from "react-icons/fa6";
 import ScrollTop from "@/components/scroll-top";
 
 interface NavItem {
@@ -29,7 +29,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="p-10 bg-gradient-to-r from-neutral-800 via-neutral-900 to-neutral-800 text-neutral-content">
+        <footer className="p-10 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 text-neutral-content">
             <div className="footer footer-center container mx-auto">
                 <nav className="grid grid-flow-row md:grid-flow-col gap-2 md:gap-4">
                     {items.map((item, index) => (
@@ -57,8 +57,8 @@ export default function Footer() {
                 </nav>
                 <aside className="text-slate-400 text-xs">
                     <p>Copyright © {new Date().getFullYear()} Madhyanchal Sarbajanin Jagadhatri Puja Samity. All Rights Reserved.</p>
-                    <p>Handcrafted with ❤️ by <a href="https://sayandatta.co.in" target="_blank" rel="noopener">Sayan Datta</a>.</p>
-                    <p>Unauthorized copying or representation of any content / photograph / illustration / artwork from this website is strictly prohibited.</p>
+                    <p>Developed with <FaHeart className="inline-block text-red-400 mx-0.5 animate-pulse" /> by <a href="https://sayandatta.co.in" target="_blank" rel="noopener">Sayan Datta</a>.</p>
+                    {/* <p>Unauthorized copying or representation of any content / photograph / illustration / artwork from this website is strictly prohibited.</p> */}
                 </aside>
             </div>
             <ScrollTop />

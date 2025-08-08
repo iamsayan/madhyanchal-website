@@ -29,7 +29,7 @@ export default function Page() {
     };
 
     const jsonLd = schema({
-        slug: 'awards',
+        path: 'awards',
         title: 'Our Awards',
     })
 

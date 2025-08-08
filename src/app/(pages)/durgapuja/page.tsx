@@ -30,7 +30,7 @@ export default async function Page() {
     )
     const curYear = new Date().getFullYear();
     const jsonLd = schema({
-        slug: 'durgapuja',
+        path: 'durgapuja',
         title: `Durga Puja ${curYear}`,
     })
 

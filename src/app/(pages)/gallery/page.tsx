@@ -23,7 +23,7 @@ export default async function Page() {
     let images = imagesData ?? []
 
     const jsonLd = schema({
-        slug: 'gallery',
+        path: 'gallery',
         title: 'Photo Gallery',
     })
 

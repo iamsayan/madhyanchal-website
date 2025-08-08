@@ -83,20 +83,20 @@ export default async function Home() {
         },
         {
             title: 'Followers',
-            stat: '8.1K',
+            stat: '8.2K',
             icon: <FaFacebook className="inline-block size-8 stroke-current" />,
             description: '100+ new followers in last 30 days'
         },
         {
             title: 'Post Reach',
-            stat: '424.6K',
+            stat: '9.6K',
             icon: <FaHistory className="inline-block size-8 stroke-current" />,
             description: '85% more than last month',
             class: 'text-secondary'
         },
         {
             title: 'Post Engagement',
-            stat: '250K',
+            stat: '38.4K',
             icon: <FaVideo className="inline-block size-8 stroke-current" />,
             description: '38% more than last month',
             class: 'text-blue-500'
@@ -110,9 +110,12 @@ export default async function Home() {
                 "@type": "Organization",
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`,
                 "name": "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
+                "email": "madhyanchalsarbajanin@gmail.com",
                 "sameAs": [
                     "https://www.facebook.com/madhyanchalsarbajanin",
-                    "https://www.instagram.com/madhyanchal_sarbajanin"
+                    "https://www.instagram.com/madhyanchal_sarbajanin",
+                    "https://www.youtube.com/@madhyanchalsarbajanin?sub_confirmation=1"
                 ]
             },
             {
@@ -123,17 +126,88 @@ export default async function Home() {
                 "publisher": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
                 },
-                "inLanguage": "en-US"
+                "inLanguage": "en-IN",
             },
             {
                 "@type": "WebPage",
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#webpage`,
                 "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": `Madhyanchal Sarbajanin | ${curYear - 1971 + 1} Years of Tradition, Unity, and Celebration since 1971!`,
+                "datePublished": "2018-02-03T00:00:00+05:30",
+                "dateModified": "2028-05-08T22:26:00+05:30",
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`
                 },
-                "inLanguage": "en-US"
+                "inLanguage": "en-IN"
+            },
+            {
+                "@type": "Event",
+                "name": `Jagadhatri Puja ${curYear} Celebration of Madhyanchal Sarbajanin`,
+                "description": `Jagadhatri Puja ${curYear} celebration by Madhyanchal Sarbajanin, Chandannagar`,
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "location": [
+                    {
+                        "@type": "Place",
+                        "name": "Chandannagar",
+                        "url": `https://en.wikipedia.org/wiki/Chandannagar`,
+                        "address": {
+                            "@type": "PostalAddress",
+                            "name": `Madhyanchal Sarbajanin Puja Ground`,
+                            "streetAddress": `Madhyanchal,Station Road, Chandannagar, Hooghly, West Bengal`,
+                            "addressLocality": "Chandannagar",
+                            "addressRegion": "West Bengal",
+                            "addressCountry": "IN"
+                        },
+                        "geo": {
+                            "@type": "GeoCoordinates",
+                            "latitude": 22.8647986,
+                            "longitude": 88.3629104
+                        },
+                        "hasMap": `https://maps.app.goo.gl/xY6cx8Arcy6ayLYq9`
+                    }
+                ],
+                "organizer": {
+                    "@type": "Organization",
+                    "name": 'Madhyanchal Sarbajanin Jagadhatri Puja Samity',
+                    "url": `${process.env.NEXT_PUBLIC_SITE_URL}`
+                },
+                "startDate": `${getDateByIndex(data, 0)}T00:00:00+05:30`,
+                "endDate": `${getDateByIndex(data, 4)}T21:59:59+05:30`,
+                "subEvent": data?.dates?.map((item: any) => {
+                    const date = new Date(item?.date);
+                    date.setDate(date.getDate() + 1);
+                    return {
+                        "@type": "Event",
+                        "name": item?.event,
+                        "description": `Jagadhatri Puja ${curYear} ${item?.event} celebration by Madhyanchal Sarbajanin, Chandannagar`,
+                        "eventStatus": "https://schema.org/EventScheduled",
+                        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                        "startDate": item?.event === 'Procession' ? `${item?.date}T18:00:00+05:30` : `${item?.date}T00:00:00+05:30`,
+                        "endDate": item?.event === 'Procession' ? `${date.toISOString().split('T')[0]}T08:00:00+05:30` : `${item?.date}T21:59:59+05:30`,
+                        "location": {
+                            "@type": "Place",
+                            "name": "Madhyanchal Puja Ground",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "streetAddress": `Madhyanchal, Station Road, Chandannagar, Hooghly, West Bengal`,
+                                "addressLocality": "Chandannagar",
+                                "addressRegion": "West Bengal",
+                                "addressCountry": "IN"
+                            },
+                        },
+                        "organizer": {
+                            "@type": "Organization",
+                            "name": 'Madhyanchal Sarbajanin Jagadhatri Puja Samity',
+                            "url": `${process.env.NEXT_PUBLIC_SITE_URL}`
+                        },
+                    }
+                }),
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#schema-1`,
+                "inLanguage": "en-IN",
+                "mainEntityOfPage": {
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#webpage`
+                }
             }
         ]
     };

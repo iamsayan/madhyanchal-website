@@ -26,7 +26,7 @@ interface Feature {
 
 export default function Page() {
     const jsonLd = schema({
-        slug: 'advertise',
+        path: 'advertise',
         title: 'Advertise with Us',
     })
 

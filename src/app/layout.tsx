@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import React from "react";
 import Script from "next/script"
 import { outfit } from "@/fonts"
@@ -8,6 +8,10 @@ import '@/app/globals.sass'
 import '@bprogress/core/css';
 
 export const revalidate = 604800 // 1 week
+
+export const viewport: Viewport = {
+    themeColor: '#eab308',
+}
 
 const curYear = new Date().getFullYear();
 
@@ -44,6 +48,9 @@ export const metadata: Metadata = {
     },
     verification: {
         google: 'SYZt9rv7_qvB3hl-_KzC5lcd-yrB4C2hr4tb2q6RyBA',
+        other: {
+            me: ['madhyanchalsarbajanin@gmail.com'],
+        },
     },
     facebook: {
         appId: process.env.NEXT_PUBLIC_FB_APP_ID!,
