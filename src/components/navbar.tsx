@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import { FaGlobe } from 'react-icons/fa';
 import { sendGTMEvent } from '@next/third-parties/google';
@@ -18,11 +18,10 @@ interface MenuItem {
 
 const Navbar: React.FC = () => {
     const pathname = usePathname();
-    const searchParams = useSearchParams();
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
     useEffect(() => {
-        sendGTMEvent({ event: 'page_view', value: pathname + searchParams.toString() });
+        sendGTMEvent({ event: 'page_view', value: pathname });
 
         const controller = new AbortController();
         const handleScroll = () => {
@@ -33,7 +32,7 @@ const Navbar: React.FC = () => {
         window.addEventListener('scroll', handleScroll, { signal: controller.signal });
 
         return () => controller.abort();
-    }, [pathname, searchParams]);
+    }, [pathname]);
 
     const items: MenuItem[] = [
         { name: 'Home', path: '/' },
