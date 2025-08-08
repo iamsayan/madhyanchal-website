@@ -5,16 +5,17 @@ import { usePathname } from 'next/navigation';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
+    
     return (
         <ProgressProvider
             options={{ showSpinner: false }}
             disableStyle
             shallowRouting
             disableAnchorClick={pathname.includes('/payment')}
-    >
-        {children}
-    </ProgressProvider>
-  );
+        >
+            {children}
+        </ProgressProvider>
+    );
 };
  
 export default Providers;
