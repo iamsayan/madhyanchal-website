@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     },
     keywords: ['durga puja', 'chandannagar', 'madhyanchal'],
     publisher: 'Madhyanchal Sarbajanin Durga Puja Samity',
+    robots: {
+        index: false,
+        follow: false,
+    },
 }
 
 export default function Page() {
