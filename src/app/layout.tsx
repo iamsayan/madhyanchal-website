@@ -57,7 +57,6 @@ export const metadata: Metadata = {
     },
     other: {
         'facebook-domain-verification': '0zt2e0ie65lmgs9vgwe2j434t5cboq',
-        'fb:admins': '100009403062755',
     },
 }
 
