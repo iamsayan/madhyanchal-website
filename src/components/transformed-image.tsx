@@ -8,7 +8,6 @@ type TransformParams = {
     grayscale?: boolean;
     fit?: 'cover' | 'contain';
     format?: 'jpeg' | 'png' | 'webp' | 'gif' | 'auto';
-    lazy?: boolean;
 };
 
 type TransformedImageProps = Omit<ImageProps, 'loader' | 'src' | 'unoptimized'> & TransformParams;

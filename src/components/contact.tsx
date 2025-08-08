@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import useWeb3Forms from "@web3forms/react";
+import { submitForm } from '@/app/actions/form';
 
 interface IFormInput {
     botcheck: boolean;
@@ -24,22 +24,22 @@ const Contact: React.FC = () => {
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const [message, setMessage] = useState<string | null>(null);
 
-    const { submit: onSubmit } = useWeb3Forms({
-        access_key: process.env.WEB3_FORM_API_KEY!,
-        settings: {
-            from_name: "Madhyanchal Sarbajanin Jagadhatri Puja Samity",
-            subject: "New Contact Message from Website",
-        },
-        onSuccess: (msg: string) => {
+    const onSubmit = async (data: IFormInput) => {
+        try {
+            const response = await submitForm(data, '592d3ecf9f775e86edc2021e37483a721b92a7f0');
+            if (!response.success) {
+                throw new Error(response.error);
+            }
+
             setIsSuccess(true);
-            setMessage(msg);
+            setMessage("Success. Message sent successfully");
             reset();
-        },
-        onError: (msg: string) => {
+        } catch (error) {
             setIsSuccess(false);
-            setMessage(msg);
-        },
-    });
+            setMessage(error instanceof Error ? error.message : "Something went wrong. Please try later.");
+            console.error(error);
+        }
+    }
 
     return (
         <>

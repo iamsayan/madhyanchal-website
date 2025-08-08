@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaSpinner } from 'react-icons/fa';
 import Image from 'next/image';
 import logo from '@/public/logo.png';
@@ -21,20 +22,7 @@ interface DrawingCompetitionFormData {
     pinCode: string;
 }
 
-interface FormErrors {
-    participantName?: string;
-    dateOfBirth?: string;
-    age?: string;
-    category?: string;
-    guardianName?: string;
-    email?: string;
-    phone?: string;
-    address?: string;
-    city?: string;
-    pinCode?: string;
-}
-
-const competitionDate = new Date('2025-09-21 09:00:00');
+const competitionDate = new Date('2025-09-21 10:00:00');
 
 const translations = {
     en: {
@@ -169,43 +157,37 @@ export default function DrawingCompetitionForm() {
     const [language, setLanguage] = useState<'en' | 'bn'>('en');
     const [success, setSuccess] = useState<{ registrationId: string } | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formData, setFormData] = useState<DrawingCompetitionFormData>({
-        participantName: '',
-        dateOfBirth: '',
-        age: '',
-        category: '',
-        guardianName: '',
-        email: '',
-        phone: '',
-        address: '',
-        city: '',
-        pinCode: '',
-    });
-    const [errors, setErrors] = useState<FormErrors>({});
 
     const t = translations[language];
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value, type } = e.target;
-        const checked = (e.target as HTMLInputElement).checked;
-
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-
-        // Clear error when user starts typing
-        if (errors[name as keyof FormErrors]) {
-            setErrors(prev => ({
-                ...prev,
-                [name]: undefined
-            }));
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors, isSubmitting },
+        reset
+    } = useForm<DrawingCompetitionFormData>({
+        defaultValues: {
+            participantName: '',
+            dateOfBirth: '',
+            age: '',
+            category: '',
+            guardianName: '',
+            email: '',
+            phone: '',
+            address: '',
+            city: '',
+            pinCode: '',
         }
+    });
 
-        // Auto-calculate age when date of birth changes
-        if (name === 'dateOfBirth' && value) {
-            const birthDate = new Date(value);
+    const watchedDateOfBirth = watch('dateOfBirth');
+
+    // Auto-calculate age when date of birth changes
+    React.useEffect(() => {
+        if (watchedDateOfBirth) {
+            const birthDate = new Date(watchedDateOfBirth);
             const diffMs = competitionDate.getTime() - birthDate.getTime();
 
             // Calculate years and months
@@ -240,78 +222,26 @@ export default function DrawingCompetitionForm() {
             else if (years >= 9 && years <= 12) category = language === 'en' ? 'B' : 'খ';
             else if (years >= 13 && years <= 17) category = language === 'en' ? 'C' : 'গ';
 
-            setFormData(prev => ({
-                ...prev,
-                age: ageString,
-                category: category
-            }));
+            setValue('age', ageString);
+            setValue('category', category);
         }
-    };
+    }, [watchedDateOfBirth, language, setValue]);
 
-    const validateForm = (): boolean => {
-        const newErrors: FormErrors = {};
-
-        if (!formData.participantName.trim()) {
-            newErrors.participantName = t.errorMessages.participantName;
-        }
-
-        if (!formData.dateOfBirth) {
-            newErrors.dateOfBirth = t.errorMessages.dateOfBirth;
-        }
-
-        if (!formData.guardianName.trim()) {
-            newErrors.guardianName = t.errorMessages.guardianName;
-        }
-
-        if (!formData.email.trim()) {
-            newErrors.email = t.errorMessages.email;
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = t.errorMessages.email;
-        }
-
-        if (!formData.phone.trim()) {
-            newErrors.phone = t.errorMessages.phone;
-        }
-
-        if (!formData.address.trim()) {
-            newErrors.address = t.errorMessages.address;
-        }
-
-        if (!formData.city.trim()) {
-            newErrors.city = t.errorMessages.city;
-        }
-
-        if (!formData.pinCode.trim()) {
-            newErrors.pinCode = t.errorMessages.pinCode;
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        
-        if (!validateForm()) {
-            return;
-        }
-
-        setIsSubmitting(true);
-        
+    const onSubmit = async (data: DrawingCompetitionFormData) => {
         try {
             const res = await submitModel(`drawingcompetition${new Date().getFullYear()}`, {
                 registration_id: `DC/${Date.now().toString().slice(-8)}`,
                 mode: 'online',
-                name: formData.participantName,
-                dob: formData.dateOfBirth,
-                age: formData.age,
-                category: formData.category,
-                guardian_name: formData.guardianName,
-                email: formData.email,
-                phone: formData.phone,
-                address: formData.address,
-                city: formData.city,
-                pincode: formData.pinCode,
+                name: data.participantName,
+                dob: data.dateOfBirth,
+                age: data.age,
+                category: data.category,
+                guardian_name: data.guardianName,
+                email: data.email,
+                phone: data.phone,
+                address: data.address,
+                city: data.city,
+                pincode: data.pinCode,
             });
 
             if (!res.success) {
@@ -320,7 +250,7 @@ export default function DrawingCompetitionForm() {
 
             await sendMail({
                 from: `"Madhyanchal Sarbajanin Durga Puja Samity" <${process.env.SMTP_USER}>`,
-                to: formData.email,
+                to: data.email,
                 subject: `Drawing Competition Registration ${new Date().getFullYear()}`,
                 html: `
                   <!--[if mso]>
@@ -359,35 +289,35 @@ export default function DrawingCompetitionForm() {
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500; width:45%;">Participant Name:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.participantName}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.participantName}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Date of Birth:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.dateOfBirth}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.dateOfBirth}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Age:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.age}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.age}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Category:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.category}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.category}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Guardian Name:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.guardianName}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.guardianName}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Email:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.email}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.email}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Phone:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.phone}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.phone}</td>
                             </tr>
                             <tr>
                               <td style="padding:5px 8px; color:#555; font-weight:500;">Address:</td>
-                              <td style="padding:5px 8px; color:#222;">${formData.address}, ${formData.city}, ${formData.pinCode}</td>
+                              <td style="padding:5px 8px; color:#222;">${data.address}, ${data.city}, ${data.pinCode}</td>
                             </tr>
                           </table>
                           <p style="font-size:0.93rem; color:#666; margin-bottom:0; margin-top:10px;">
@@ -403,7 +333,7 @@ export default function DrawingCompetitionForm() {
                               </span>
                             </span>
                             <br/>
-                            <strong>Required:</strong> <span style="color:#222;">Valid Date of Birth Certificate Photocopy</span><br/>
+                            <strong>Required:</strong> <span style="color:#222;">Photocopy of Valid Date of Birth Certificate</span><br/>
                           </p>
                           <hr style="border:none; border-top:1px solid #e3e8ee; margin:18px 0 10px 0;" />
                           <p style="font-size:0.92rem; color:#888; text-align:center; margin:0;">
@@ -420,25 +350,10 @@ export default function DrawingCompetitionForm() {
             });
 
             setSuccess({ registrationId: res.response.registration_id });
-            
-            // Reset form
-            setFormData({
-                participantName: '',
-                dateOfBirth: '',
-                age: '',
-                category: '',
-                guardianName: '',
-                email: '',
-                phone: '',
-                address: '',
-                city: '',
-                pinCode: '',
-            });
+            reset();
         } catch (error) {
+            setError(error instanceof Error ? error.message : "Something went wrong. Please try later.");
             console.error(error);
-            setError(`${error}`);
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
@@ -594,7 +509,7 @@ export default function DrawingCompetitionForm() {
                             </div>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6 text-xs sm:text-sm">
+                        <form onSubmit={handleSubmit(onSubmit as SubmitHandler<DrawingCompetitionFormData>)} className="space-y-6 text-xs sm:text-sm">
                             {/* Participant Information */}
                             <div className="bg-gray-50 p-4 sm:p-6 md:p-8 rounded-lg">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -604,16 +519,16 @@ export default function DrawingCompetitionForm() {
                                         </label>
                                         <input
                                             type="text"
-                                            name="participantName"
-                                            value={formData.participantName}
-                                            onChange={handleInputChange}
+                                            {...register('participantName', { 
+                                                required: t.errorMessages.participantName 
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.participantName ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={language === 'en' ? "Enter your full name" : "প্রতিযোগীর নাম লিখুন"}
                                         />
                                         {errors.participantName && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.participantName}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.participantName.message}</p>
                                         )}
                                     </div>
 
@@ -623,9 +538,9 @@ export default function DrawingCompetitionForm() {
                                         </label>
                                         <input
                                             type="date"
-                                            name="dateOfBirth"
-                                            value={formData.dateOfBirth}
-                                            onChange={handleInputChange}
+                                            {...register('dateOfBirth', { 
+                                                required: t.errorMessages.dateOfBirth 
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
                                             }`}
@@ -641,53 +556,43 @@ export default function DrawingCompetitionForm() {
                                                 return minDate.toISOString().split('T')[0];
                                             })()}
                                             tabIndex={-1}
-                                            //onFocus={e => e.target.blur()}
-                                            //placeholder={language === 'en' ? "Enter your date of birth" : "প্রতিযোগীর জন্ম তারিখ লিখুন"}
                                         />
                                         {errors.dateOfBirth && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.dateOfBirth}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.dateOfBirth.message}</p>
                                         )}
                                     </div>
 
-                                    { formData.dateOfBirth && 
+                                    { watchedDateOfBirth && 
                                         <>
-                                        <div>
-                                            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                                                {language === 'en'
-                                                    ? `${t.age} (As on ${t.eventDate})`
-                                                    : `${t.age} (${t.eventDate} তারিখ অনুযায়ী)`} <span className="text-red-500">*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="age"
-                                                value={formData.age}
-                                                readOnly
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-                                                placeholder={t.autoCalculated}
-                                                tabIndex={-1}
-                                            />
-                                            {errors.age && (
-                                                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.age}</p>
-                                            )}
-                                        </div>
+                                            <div>
+                                                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                                                    {language === 'en'
+                                                        ? `${t.age} (As on ${t.eventDate})`
+                                                        : `${t.age} (${t.eventDate} তারিখ অনুযায়ী)`} <span className="text-red-500">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    {...register('age')}
+                                                    readOnly
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+                                                    placeholder={t.autoCalculated}
+                                                    tabIndex={-1}
+                                                />
+                                            </div>
 
-                                        <div>
-                                            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                                                {t.category} <span className="text-red-500">*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                name="category"
-                                                value={formData.category}
-                                                readOnly
-                                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
-                                                placeholder={t.autoDetermined}
-                                                tabIndex={-1}
-                                            />
-                                            {errors.category && (
-                                                <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.category}</p>
-                                            )}
-                                        </div>
+                                            <div>
+                                                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                                                    {t.category} <span className="text-red-500">*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    {...register('category')}
+                                                    readOnly
+                                                    className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
+                                                    placeholder={t.autoDetermined}
+                                                    tabIndex={-1}
+                                                />
+                                            </div>
                                         </>
                                     }
 
@@ -697,16 +602,16 @@ export default function DrawingCompetitionForm() {
                                         </label>
                                         <input
                                             type="text"
-                                            name="guardianName"
-                                            value={formData.guardianName}
-                                            onChange={handleInputChange}
+                                            {...register('guardianName', { 
+                                                required: t.errorMessages.guardianName 
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.guardianName ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={t.enterGuardianName}
                                         />
                                         {errors.guardianName && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.guardianName}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.guardianName.message}</p>
                                         )}
                                     </div>
 
@@ -716,16 +621,20 @@ export default function DrawingCompetitionForm() {
                                         </label>
                                         <input
                                             type="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
+                                            {...register('email', { 
+                                                required: t.errorMessages.email,
+                                                pattern: {
+                                                    value: /\S+@\S+\.\S+/,
+                                                    message: t.errorMessages.email
+                                                }
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.email ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={t.enterEmail}
                                         />
                                         {errors.email && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.email.message}</p>
                                         )}
                                     </div>
 
@@ -734,18 +643,21 @@ export default function DrawingCompetitionForm() {
                                             {t.phone} <span className="text-red-500">*</span>
                                         </label>
                                         <input
-                                            name="phone"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
+                                            {...register('phone', { 
+                                                required: t.errorMessages.phone,
+                                                pattern: {
+                                                    value: /^\d{10}$/,
+                                                    message: t.errorMessages.phone
+                                                }
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.phone ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={t.enterPhone}
-                                            pattern="\d{10}"
                                             maxLength={10}
                                         />
                                         {errors.phone && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.phone.message}</p>
                                         )}
                                     </div>
 
@@ -754,9 +666,9 @@ export default function DrawingCompetitionForm() {
                                             {t.address} <span className="text-red-500">*</span>
                                         </label>
                                         <textarea
-                                            name="address"
-                                            value={formData.address}
-                                            onChange={handleInputChange}
+                                            {...register('address', { 
+                                                required: t.errorMessages.address 
+                                            })}
                                             rows={3}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.address ? 'border-red-500' : 'border-gray-300'
@@ -764,7 +676,7 @@ export default function DrawingCompetitionForm() {
                                             placeholder={t.enterAddress}
                                         />
                                         {errors.address && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.address}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.address.message}</p>
                                         )}
                                     </div>
 
@@ -773,16 +685,16 @@ export default function DrawingCompetitionForm() {
                                             {t.city} <span className="text-red-500">*</span>
                                         </label>
                                         <input
-                                            name="city"
-                                            value={formData.city}
-                                            onChange={handleInputChange}
+                                            {...register('city', { 
+                                                required: t.errorMessages.city 
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.city ? 'border-red-500' : 'border-gray-300'
                                             }`}
                                             placeholder={t.enterCity}
                                         />
                                         {errors.city && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.city}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.city.message}</p>
                                         )}
                                     </div>
 
@@ -791,18 +703,21 @@ export default function DrawingCompetitionForm() {
                                             {t.pinCode} <span className="text-red-500">*</span>
                                         </label>
                                         <input
-                                            name="pinCode"
-                                            value={formData.pinCode}
-                                            onChange={handleInputChange}
+                                            {...register('pinCode', { 
+                                                required: t.errorMessages.pinCode,
+                                                pattern: {
+                                                    value: /^\d{6}$/,
+                                                    message: t.errorMessages.pinCode
+                                                }
+                                            })}
                                             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                                                 errors.pinCode ? 'border-red-500' : 'border-gray-300'
                                             }`}
-                                            pattern="\d{6}"
                                             maxLength={6}
                                             placeholder={t.enterPinCode}
                                         />
                                         {errors.pinCode && (
-                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.pinCode}</p>
+                                            <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.pinCode.message}</p>
                                         )}
                                     </div>
                                 </div>
