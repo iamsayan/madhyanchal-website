@@ -188,9 +188,7 @@ export default function DrawingCompetitionForm() {
     React.useEffect(() => {
         if (watchedDateOfBirth) {
             const birthDate = new Date(watchedDateOfBirth);
-            const diffMs = competitionDate.getTime() - birthDate.getTime();
 
-            // Calculate years and months
             let years = competitionDate.getFullYear() - birthDate.getFullYear();
             let months = competitionDate.getMonth() - birthDate.getMonth();
             let days = competitionDate.getDate() - birthDate.getDate();
@@ -206,7 +204,7 @@ export default function DrawingCompetitionForm() {
                 months += 12;
             }
 
-            // Compose age string
+            // Compose age string with years, months, and days
             let ageString = '';
             if (years > 0) {
                 ageString += years + (language === 'en' ? ' yr' : ' বছর');
@@ -214,6 +212,10 @@ export default function DrawingCompetitionForm() {
             if (months > 0 || years === 0) {
                 if (ageString) ageString += ' ';
                 ageString += months + (language === 'en' ? ' mo' : ' মাস');
+            }
+            if (days > 0 || (years === 0 && months === 0)) {
+                if (ageString) ageString += ' ';
+                ageString += days + (language === 'en' ? ' d' : ' দিন');
             }
 
             // For category, use only years
@@ -551,8 +553,7 @@ export default function DrawingCompetitionForm() {
                                             })()}
                                             min={(() => {
                                                 const minDate = new Date(competitionDate);
-                                                minDate.setDate(minDate.getDate() + 1);
-                                                minDate.setFullYear(minDate.getFullYear() - 17);
+                                                minDate.setFullYear(minDate.getFullYear() - 16);
                                                 return minDate.toISOString().split('T')[0];
                                             })()}
                                             tabIndex={-1}
