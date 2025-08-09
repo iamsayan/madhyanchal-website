@@ -323,7 +323,7 @@ export default function DrawingCompetitionForm() {
                             Dear Participant,
                           </p>
                           <p style="font-size:0.95rem; color:#444; margin-bottom:14px; margin-top:0;">
-                            Thank you for registering for the <strong>Drawing Competition ${new Date().getFullYear()}</strong> organized by <strong>Madhyanchal Sarbajanin Jagadhatri Puja Samity</strong>.
+                            Thank you for registering for the <strong>Drawing Competition ${new Date().getFullYear()}</strong> organized by <strong>Madhyanchal Sarbajanin Durga Puja Samity</strong> on the occasion of their 31st year of the Durga Puja celebration.
                           </p>
                           <div style="background:#f0f7ff; border-radius:8px; padding:12px; margin-bottom:14px; text-align:center;">
                             <span style="display:block; color:#6c63ff; font-size:0.92rem; margin-bottom:4px;">Your Registration ID</span>
@@ -389,6 +389,10 @@ export default function DrawingCompetitionForm() {
                           <hr style="border:none; border-top:1px solid #e3e8ee; margin:18px 0 10px 0;" />
                           <p style="font-size:0.92rem; color:#888; text-align:center; margin:0;">
                             For any queries, reply to this email or contact us at <a href="mailto:${process.env.SMTP_USER}" style="color:#4f8ef7; text-decoration:none;">${process.env.SMTP_USER}</a>
+                            &nbsp;or&nbsp;
+                            <a href="https://wa.me/917686943894" style="color:#25D366; text-decoration:none;" target="_blank" rel="noopener noreferrer">
+                              WhatsApp: +91-7686943894
+                            </a>
                           </p>
                         </td>
                       </tr>
