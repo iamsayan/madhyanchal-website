@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaEnvelope, FaSpinner, FaWhatsapp } from 'react-icons/fa';
 import Image from 'next/image';
@@ -185,25 +185,66 @@ export default function DrawingCompetitionForm() {
     const watchedDateOfBirth = watch('dateOfBirth');
 
     // Auto-calculate age when date of birth changes
-    React.useEffect(() => {
+    useEffect(() => {
         if (watchedDateOfBirth) {
+            // Ensure the date is properly formatted (YYYY-MM-DD)
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(watchedDateOfBirth)) {
+                console.warn('Invalid date format:', watchedDateOfBirth);
+                setValue('age', '');
+                setValue('category', '');
+                return;
+            }
+            
             const birthDate = new Date(watchedDateOfBirth);
+            
+            // Check if the date is valid
+            if (isNaN(birthDate.getTime())) {
+                console.warn('Invalid date object created from:', watchedDateOfBirth);
+                setValue('age', '');
+                setValue('category', '');
+                return;
+            }
+            
+            // Validate birth date is reasonable (not too old or in the future)
+            const currentYear = new Date().getFullYear();
+            const birthYear = birthDate.getFullYear();
+            
+            if (birthYear < 1900 || birthYear > currentYear) {
+                console.warn('Invalid birth year:', birthYear, '- Date may be incorrectly formatted');
+                setValue('age', '');
+                setValue('category', '');
+                return;
+            }
+            
+            if (birthDate > competitionDate) {
+                console.warn('Birth date is after competition date');
+                setValue('age', '');
+                setValue('category', '');
+                return;
+            }
 
+            // Calculate age in total days for precise comparison
+            const timeDiff = competitionDate.getTime() - birthDate.getTime();
+            const totalDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            // Precise calculation of years, months, and days considering month boundaries
             let years = competitionDate.getFullYear() - birthDate.getFullYear();
             let months = competitionDate.getMonth() - birthDate.getMonth();
             let days = competitionDate.getDate() - birthDate.getDate();
-
+            
+            // Adjust for negative months or days
             if (days < 0) {
-                months -= 1;
-                // Get days in previous month
-                const prevMonth = new Date(competitionDate.getFullYear(), competitionDate.getMonth(), 0);
-                days += prevMonth.getDate();
+                // Get the last day of the previous month
+                const lastMonth = new Date(competitionDate.getFullYear(), competitionDate.getMonth(), 0);
+                days += lastMonth.getDate();
+                months--;
             }
+            
             if (months < 0) {
-                years -= 1;
                 months += 12;
+                years--;
             }
-
+            
             // Compose age string with years, months, and days
             let ageString = '';
             if (years > 0) {
@@ -218,11 +259,19 @@ export default function DrawingCompetitionForm() {
                 ageString += days + (language === 'en' ? ' d' : ' দিন');
             }
 
-            // For category, use only years
+            // Category determination based on EXACT day specifications
+            // Competition date: 2025-09-21
+            // Group A: 0-8 years 0m 0d = 0 to 2922 days (8 years exactly)
+            // Group B: 8y 1d to 12y 0m 0d = 2923 to 4383 days (8y 1d to 12y exactly)
+            // Group C: 12y 1d to 16y 0m 0d = 4384 to 5844 days (12y 1d to 16y exactly)
             let category = '';
-            if (years <= 8) category = language === 'en' ? 'A' : 'ক';
-            else if (years >= 9 && years <= 12) category = language === 'en' ? 'B' : 'খ';
-            else if (years >= 13 && years <= 17) category = language === 'en' ? 'C' : 'গ';
+            if (totalDays <= 2922) { // 0-8 years exactly
+                category = language === 'en' ? 'A' : 'ক';
+            } else if (totalDays >= 2923 && totalDays <= 4383) { // 8y 1d to 12y exactly
+                category = language === 'en' ? 'B' : 'খ';
+            } else if (totalDays >= 4384 && totalDays <= 5844) { // 12y 1d to 16y exactly
+                category = language === 'en' ? 'C' : 'গ';
+            }
 
             setValue('age', ageString);
             setValue('category', category);
@@ -792,4 +841,4 @@ export default function DrawingCompetitionForm() {
             </div>
         </>
     );
-} 
+}
