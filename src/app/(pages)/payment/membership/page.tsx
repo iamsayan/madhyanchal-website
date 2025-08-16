@@ -11,9 +11,9 @@ export const metadata: Metadata = {
     },
 }
 
-export default async function Page( { searchParams }: { searchParams: { v?: string } } ) {
+export default async function Page({ searchParams }: { searchParams: Promise<{ v: string }> }) {
     const { v } = await searchParams;
-    const membersData = await getModel('members', { populate: 1 });
+    const membersData = await getModel('members', { payments: 1 });
     const data = membersData?.data ?? [];
 
     return (
