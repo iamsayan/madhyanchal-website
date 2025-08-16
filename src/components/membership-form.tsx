@@ -351,7 +351,7 @@ export default function MembershipForm({ membersData }: { membersData: Member[] 
                         Amount (₹) <span className="text-red-500">*</span>
                         {selectedMember && (
                             <span className="text-xs text-gray-500 ml-2">
-                                (Total Due: ₹{selectedMember.amount}, Monthly: ₹{monthlyAmount})
+                                (Due: ₹{selectedMember.amount - monthlyAmount})
                             </span>
                         )}
                     </label>
