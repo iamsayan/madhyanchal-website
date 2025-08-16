@@ -3,6 +3,7 @@ const nextConfig = {
     env: {
         API_URL: process.env.API_URL,
         API_KEY: process.env.API_KEY,
+        WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
         SMTP_USER: process.env.SMTP_USER,
         SMTP_PASS: process.env.SMTP_PASS,
         GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
