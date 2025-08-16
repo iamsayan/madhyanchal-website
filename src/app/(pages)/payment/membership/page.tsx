@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import MembershipForm from '@/components/membership-form';
+import { getModel } from '@/utils/fetch';
 import RazorPayForm from '@/components/razorpay-form';
 
 export const metadata: Metadata = {
@@ -9,7 +11,11 @@ export const metadata: Metadata = {
     },
 }
 
-export default function Page() {
+export default async function Page( { searchParams }: { searchParams: { v: string } } ) {
+    const { v } = await searchParams;
+    const membersData = await getModel('members', { populate: 1 });
+    const data = membersData?.data ?? [];
+
     return (
         <>
             <div className="relative text-center mb-8">
@@ -26,7 +32,7 @@ export default function Page() {
                     <div className="w-20 h-[1px] bg-gradient-to-r from-gray-300 to-transparent"></div>
                 </div>
             </div>
-            <RazorPayForm type="membership" />
+            {v === 'new' ? <MembershipForm membersData={data} /> : <RazorPayForm type="membership" />}
         </>
     )
 }

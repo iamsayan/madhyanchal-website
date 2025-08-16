@@ -7,7 +7,7 @@ import CountdownTimer from "@/components/countdown-timer";
 import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaAward, FaGlobe, FaVideo, FaFacebook, FaMapMarkerAlt, FaPhotoVideo, FaCalendarDay } from "react-icons/fa";
 import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
 import GallerySlider from "@/components/gallery-slider";
@@ -28,7 +28,7 @@ interface MenuItem {
 }
 
 export default async function Home() {
-    const siteData = await getSingletonData('information');
+    const siteData = await getModel('information', { type: 'item' });
     const data = siteData ?? null;
     const year = getDateByIndex(data, 0).getFullYear();
     const curYear = new Date().getFullYear();

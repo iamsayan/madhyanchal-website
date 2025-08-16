@@ -1,6 +1,6 @@
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import schema from "@/utils/schema";
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { formatDate, getDateByIndex } from '@/utils/functions';
@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { metadata as rootMetadata } from '@/app/layout';
 
 export async function generateMetadata() {
-    const siteDataRes = await getSingletonData('information');
+    const siteDataRes = await getModel('information', { type: 'item' });
     const siteData = siteDataRes ?? null;
     const displayDate = getDateByIndex(siteData, 0);
     const uptoYear = displayDate.getFullYear();
@@ -35,7 +35,7 @@ interface SchemaOptions {
 }
 
 export default async function Page() {
-    const siteData = await getSingletonData('information');
+    const siteData = await getModel('information', { type: 'item' });
     const data = siteData ?? null
 
     const currentYear = new Date().getFullYear();

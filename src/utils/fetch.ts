@@ -1,15 +1,26 @@
+import { generateUrlSearchParams } from "@/utils/functions";
+
 interface ApiResponse {
     [key: string]: any;
 }
 
-// Fetch collection data with optional parameters
-export async function getCollectionData(slug: string): Promise<ApiResponse> {
-    const response = await fetch(`${process.env.API_URL}/content/items/${slug}`, {
+export async function getModel(model: string, params: Record<string, any> = {}): Promise<ApiResponse> {
+    const type = params.type ?? 'items';
+    delete params.type;
+
+    if (type === 'items') {
+        params = { skip: 0, limit: 1000, ...params };
+    }
+    
+    const response = await fetch(`${process.env.API_URL}/content/${type}/${generateUrlSearchParams(model, params)}`, {
         method: "GET",
         headers: {
             "api-key": process.env.API_KEY!,
         },
-        next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
+        next: {
+            tags: [`model-${model}`],
+            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+        },
     });
 
     if (response.ok) {
@@ -19,14 +30,17 @@ export async function getCollectionData(slug: string): Promise<ApiResponse> {
     }
 }
 
-// Fetch singleton data
-export async function getSingletonData(slug: string): Promise<ApiResponse> {
-    const response = await fetch(`${process.env.API_URL}/content/item/${slug}`, {
+export async function getModels(models: Record<string, any>, populate: -1 | 0 | 1 = 0): Promise<ApiResponse> {
+    const route = generateUrlSearchParams('items', { models, populate });
+    const response = await fetch(`${process.env.API_URL}/content/${route}`, {
         method: "GET",
         headers: {
             "api-key": process.env.API_KEY!,
         },
-        next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
+        next: {
+            tags: Object.keys(models).map((key) => `model-${key}`),
+            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+        },
     });
 
     if (response.ok) {
